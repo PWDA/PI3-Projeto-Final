@@ -1,0 +1,121 @@
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    
+}
+
+body, html{
+    height: 100%;
+}
+
+.top-header{
+   background: #ffffff;
+}
+
+.img-logo{
+    padding: 10px 0
+}
+
+nav{
+    background: #67C18D;
+}
+
+.container{
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.menu-principal{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 0;
+
+}
+
+.link-submenu-cadastro:hover .sub-menu,
+.link-submenu-consulta:hover .sub-menu{
+    display: block;
+}
+
+.sub-menu{
+    position: absolute;
+    display: none;
+    padding-top: 10px; 
+}
+
+.sub-menu li{
+    list-style: none;
+}
+
+.sub-menu a{
+    width: 100%;
+    display: block;
+    
+}
+
+.menu-principal > li{
+    list-style: none;
+    margin: 0 10px;
+    padding: 10px 0;
+}
+
+
+
+.sub-menu-item a{
+    background:#67C18D!important;
+    color: white!important;
+  
+    
+}
+
+
+.menu-principal > li a{
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+}
+
+.btn-login{
+    font-size: 14px;
+    text-decoration: none;
+    background:#0066B0;
+    border-radius: 10px 21px 2px;
+    color: #fff;
+    padding: 5px 10px;
+}
+
+.btn-login:hover{
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#00BDF4),color-stop(#0066B0), to(#0066B0));
+    background-image: linear-gradient(to bottom right, #00BDF4,#0066B0, #0066B0);
+    -webkit-box-shadow: 2px 5px 10px rgba(0,0,0,.2);
+    box-shadow: 2px 5px 10px rgba(0,0,0,.2);
+}
+
+.bem-vindos{
+    width: 80%;
+    margin: 100px auto;
+    text-align: center;
+    font-size: 30px;
+    color: #333;
+}
+
+.title-pwda{
+    color: #015496;
+    font-size: 45px;
+    text-transform: uppercase;
+}
+
+footer{
+    position: relative;
+    bottom: 0;
+    background: #67C18D;
+    text-align: center;
+    color: white;
+
+}

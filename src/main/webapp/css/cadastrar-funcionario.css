@@ -1,0 +1,229 @@
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    
+}
+
+.top-header{
+   background: #ffffff;
+}
+
+.img-logo{
+    padding: 10px 0
+}
+
+nav{
+    background: #67C18D;
+}
+
+.container{
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.menu-principal{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 10px 0;
+
+}
+
+.link-submenu-cadastro:hover .sub-menu,
+.link-submenu-consulta:hover .sub-menu{
+    display: block;
+}
+
+.sub-menu{
+    position: absolute;
+    display: none;
+    padding-top: 10px; 
+}
+
+.sub-menu li{
+    list-style: none;
+}
+
+.sub-menu a{
+    width: 100%;
+    display: block;
+    
+}
+
+.menu-principal > li{
+    list-style: none;
+    margin: 0 10px;
+    padding: 10px 0;
+}
+
+
+
+.sub-menu-item a{
+    background:#67C18D!important;
+    color: white!important;
+  
+    
+}
+
+
+.menu-principal > li a{
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+}
+
+.btn-login{
+    font-size: 14px;
+    text-decoration: none;
+    background:#0066B0;
+    border-radius: 10px 21px 2px;
+    color: #fff;
+    padding: 5px 10px;
+}
+
+.btn-login:hover{
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#00BDF4),color-stop(#0066B0), to(#0066B0));
+    background-image: linear-gradient(to bottom right, #00BDF4,#0066B0, #0066B0);
+    -webkit-box-shadow: 2px 5px 10px rgba(0,0,0,.2);
+    box-shadow: 2px 5px 10px rgba(0,0,0,.2);
+}
+
+.btn-login{
+    font-size: 14px;
+    text-decoration: none;
+    background:#0066B0;
+    border-radius: 10px 21px 2px;
+    color: #fff;
+    padding: 5px 10px;
+}
+
+.btn-login:hover{
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#00BDF4),color-stop(#0066B0), to(#0066B0));
+    background-image: linear-gradient(to bottom right, #00BDF4,#0066B0, #0066B0);
+    -webkit-box-shadow: 2px 5px 10px rgba(0,0,0,.2);
+    box-shadow: 2px 5px 10px rgba(0,0,0,.2);
+}
+
+
+.titulo-cad-func{
+    text-align: center;
+    padding: 20px;
+    color: #333;
+}
+
+.cadastro{
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+form{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+input{
+    width: 90%;
+    height: 30px;
+    margin-bottom: 10px;
+    outline: none;
+    background: rgba(0,0,0,0.0);
+    border: 1px solid rgba(0,0,0,.5);
+    padding: 10px;
+    color: #333;
+    
+}
+
+select{
+    width: 90%;
+    height: 30px;
+    border: 0;
+    margin-bottom: 10px;
+    outline: none;
+    background: rgba(0,0,0,0.0);
+    border: 1px solid rgba(0,0,0,.5);
+    color: #333;
+}
+
+.inputs-dados,.inputs-contato,.inputs-endereco{  
+    -webkit-box-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+   
+    
+}
+
+.labels-dados,.labels-contato,.labels-endereco{
+   text-align: right;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin: 0 40px;
+    color: #333;
+    
+}
+
+input[type=image]{
+    margin: 20px;
+}
+
+label{
+    display: block;
+    height: 30px;
+    margin-bottom: 10px;
+
+}
+
+input::-webkit-input-placeholder{
+    color: rgba();
+}
+
+input:-ms-input-placeholder{
+    color: rgba();
+}
+
+input::placeholder{
+    color: rgba(0,0,0,0.3);
+}
+
+input[type=submit]{
+    margin: 40px 0;
+    padding: 0;
+    background-image:-webkit-gradient(linear, left bottom, left top, from(#00BEF4), to(#2988d1));
+    background-image:linear-gradient(to top, #00BEF4, #2988d1);
+    color: white;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    border-radius: 5px;
+    width: 100px;
+}
+
+input[type=image]{
+    width: 200px!important;
+    border-radius: 50%;
+    height: 200px!important;
+    background: rgba(0,0,0,0.0);
+    border: none;
+}
+
+input[type=image]{
+    width: 100px;
+    height: 100px;
+}
+
+footer{
+    position: relative;
+    bottom: 0;
+    background: #67C18D;
+    text-align: center;
+    color: white;
+}
