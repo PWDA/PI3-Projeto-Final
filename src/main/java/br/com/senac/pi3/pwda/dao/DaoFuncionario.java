@@ -17,8 +17,7 @@ public class DaoFuncionario {
     public static boolean update(Funcionario func) throws SQLException, Exception {
 
         String sqlComando = "";
-        int idEmpresa = 0;
-
+        
         Connection connection = ConnectionUtils.getConnection();
         Statement buscaEmpresa = connection.createStatement();
 
@@ -34,10 +33,6 @@ public class DaoFuncionario {
             ex.printStackTrace();
         }
 
-        //CASO NÃO ENCONTRE A EMPRESA POR PADRÃO SALVA NA MATRIZ
-        if (idEmpresa <= 0) {
-            func.setIdEmpresa(1);
-        }
         sqlComando = "UPDATE TB_FUNCIONARIO SET NOME=?, NRDOC=?, TELEFONE=?,"
                 + "DT_NASCIMENTO=?, NACIONALIDADE=?, ENDERECO=?, BAIRRO=?,"
                 + "CIDADE=?, UF=?, CEP=?, EMAIL=?, SEXO=?, FK_EMPRESA=?,"
@@ -82,7 +77,6 @@ public class DaoFuncionario {
 
     public static boolean insert(Funcionario func) throws SQLException, Exception {
         String sqlComando = "";
-        int idEmpresa = 0;
 
         Connection connection = ConnectionUtils.getConnection();
         Statement buscaEmpresa = connection.createStatement();
@@ -97,11 +91,6 @@ public class DaoFuncionario {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-
-        //CASO NÃO ENCONTRE A EMPRESA POR PADRÃO SALVA NA MATRIZ
-        if (idEmpresa <= 0) {
-            idEmpresa = 1;
         }
         sqlComando = "INSERT INTO TB_FUNCIONARIO "
                 + "(NOME, NRDOC, TELEFONE, DT_NASCIMENTO, NACIONALIDADE, ENDERECO, BAIRRO,"
@@ -259,6 +248,7 @@ public class DaoFuncionario {
             func.setEmail(rs.getString("EMAIL").trim());
             func.setDepartamento(rs.getString("DEPARTAMENTO"));
             func.setEmpresa(rs.getString("EMPRESA"));
+            func.setCargo(rs.getString("CARGO"));
             func.setIdEmpresa(rs.getInt("FK_EMPRESA"));
             func.setInativo(rs.getInt("TG_INATIVO"));
 

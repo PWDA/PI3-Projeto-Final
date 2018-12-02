@@ -19,7 +19,7 @@
         <c:if test="${usuario.getId() == null}">
             <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
         </c:if>
-         <header>
+        <header>
             <nav>
                 <div class="top-header">
                     <div class="container">
@@ -32,10 +32,10 @@
                 <div class="container">
                     <ul class="menu-principal">
                         <li><a href="./jsp/home.jsp">Home</a></li>
-                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2}">
+                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 3}">
                             <li class="link-submenu-cadastro"><a href="#">Cadastro</a>
                                 <ul class="sub-menu">
-                                    <c:if test="${usuario.getAutorizar() == 2}">
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                                         <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpCadastrar" method="get">Empresa</a></li>
                                         </c:if>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliCadastrar" method="get">Cliente</a></li>
@@ -48,15 +48,19 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliConsultar" method="get">Cliente</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncConsultar" method="get">Funcionário</a></li>
-                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdConsultar" method="get">Produto</a></li>
+                                        <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 3 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 5}">
+                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdConsultar" method="get">Produto</a></li>
+                                        </c:if>
                                 </ul>
                             </li>
                             <li class="link-submenu-consulta"><a href="#">Relatórios</a>
                                 <ul class="sub-menu">
-                                   <c:if test="${usuario.getAutorizar() == 2}">
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                                         <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Global" method="get">Relatório Global</a></li>
                                         </c:if>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Regional" method="get">Relatório Regional</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Produto" method="get">Relatório Produto</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Cliente" method="get">Relatório Cliente</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -85,8 +89,10 @@
                             <th>Nrº Documento</th>
                             <th>E-mail</th>
                             <th>Telefone</th>
-                            <th>Alterar</th> 
-                            <th>Inativar/Ativar</th> 
+                            <th>Alterar</th>
+                                <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
+                                <th>Inativar/Ativar</th>
+                                </c:if>
                         </tr>
 
                         <c:forEach items="${cliente}" var="cli" varStatus="stat">
@@ -101,11 +107,12 @@
                                     <a href="CliCadastrar?id=<c:out value='${cli.getId()}'/>" 
                                        class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
                                 </td>
-
-                                <td>
-                                    <a href="CliDeletar?id=<c:out value='${cli.getId()}'/>" 
-                                       class="btn-delete"> <i class="fas fa-times"> </i> </a>
-                                </td>
+                                <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
+                                    <td>
+                                        <a href="CliDeletar?id=<c:out value='${cli.getId()}'/>" 
+                                           class="btn-delete"> <i class="fas fa-times"> </i> </a>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
 

@@ -18,7 +18,7 @@
         <c:if test="${usuario.getId() == null}">
             <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
         </c:if>
-        <header>
+               <header>
             <nav>
                 <div class="top-header">
                     <div class="container">
@@ -31,10 +31,10 @@
                 <div class="container">
                     <ul class="menu-principal">
                         <li><a href="./jsp/home.jsp">Home</a></li>
-                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2}">
+                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 3}">
                             <li class="link-submenu-cadastro"><a href="#">Cadastro</a>
                                 <ul class="sub-menu">
-                                    <c:if test="${usuario.getAutorizar() == 2}">
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                                         <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpCadastrar" method="get">Empresa</a></li>
                                         </c:if>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliCadastrar" method="get">Cliente</a></li>
@@ -47,15 +47,19 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliConsultar" method="get">Cliente</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncConsultar" method="get">Funcionário</a></li>
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 3 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 5}">
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdConsultar" method="get">Produto</a></li>
+                                    </c:if>
                                 </ul>
                             </li>
                             <li class="link-submenu-consulta"><a href="#">Relatórios</a>
                                 <ul class="sub-menu">
-                                    <c:if test="${usuario.getAutorizar() == 2}">
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                                         <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Global" method="get">Relatório Global</a></li>
                                         </c:if>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Regional" method="get">Relatório Regional</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Produto" method="get">Relatório Produto</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Cliente" method="get">Relatório Cliente</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -93,10 +97,19 @@
                             <input type="name" name="nome" placeholder="Digite o nome" maxlength="100"  value="${funcionario.getNome()}" required><br>
                             <input type="text" name="NrDocumento" placeholder="Digite o numero de documento" maxlength="30" value="${funcionario.getNumDocumento()}" required><br>
                             <input type="date" name="data-nascimento" value="${funcionario.getDataNasci()}" required><br>                               
-                            <select name="sexo" id="sexo" value="${funcionario.getSexo()}">
-                                <option value="Masculino">Masculino</option>
-                                <option value="Feminino">Feminino</option>
-                                <option value="Outros">Outros</option>
+                            <select name="sexo" id="sexo">
+                                <c:if test="${funcionario.getSexo() == 'Masculino'}" >
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Feminino">Feminino</option>
+                                </c:if>
+                                <c:if test="${funcionario.getSexo() == 'Feminino'}" >
+                                    <option value="Feminino">Feminino</option>
+                                    <option value="Masculino">Masculino</option>                                    
+                                </c:if>
+                                <c:if test="${funcionario.getSexo() == null}" >
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Feminino">Feminino</option>
+                                </c:if>
                             </select><br>        
                             <input type="text" name="nacionalidade" placeholder="Digite a nacionalidade" maxlength="2" value="${funcionario.getNacionalidade()}" required><br>                        
                         </div><!--inputs-->
@@ -126,15 +139,12 @@
                         </div><!--labels-->
 
                         <div class="inputs-contato">                                                  
-                            <input type="email" name="email" id="email" placeholder="Digite o e-mail" value="${funcionario.getEmail()}" required><br>
-                            <input type="tel" name="telefone" id="telefone" placeholder="Digite o telefone" value="${funcionario.getTelefone()}" required><br>
-                            <select name="cargo" id="cargo">
-                                <option value="gerente">Gerente</option>
-                                <option value="backoffice">Backoffice</option>
-                                <option value="backoffice">TI</option>
-                            </select>                        
-                            <input type="text" name="departamento" id="departamento" placeholder="Digite o departamento" value="${funcionario.getDepartamento()}" required><br>
-                            <select name="empresa" id="empresa" select="${funcionario.getEmpresa()}">
+                            <input type="email" name="email" id="email" placeholder="Digite o e-mail" maxlength="150" value="${funcionario.getEmail()}" required><br>
+                            <input type="tel" name="telefone" id="telefone" placeholder="Digite o telefone" maxlength="80" value="${funcionario.getTelefone()}" required><br>
+                            <input type="text" name="cargo" id="cargo" placeholder="Digite o cargo" maxlength="100" value="${funcionario.getCargo()}" required><br>
+                            <input type="text" name="departamento" id="departamento" placeholder="Digite o departamento" maxlength="100" value="${funcionario.getDepartamento()}" required><br>
+                            <select name="empresa" id="empresa">
+                                <option><c:out value="${funcionario.getEmpresa()}"></c:out></option>
                                 <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>
                                 <option value="PWDA-RIO DE JANEIRO">PWDA-RIO DE JANEIRO</option>
                                 <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option>

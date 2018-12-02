@@ -31,10 +31,10 @@
                 <div class="container">
                     <ul class="menu-principal">
                         <li><a href="./jsp/home.jsp">Home</a></li>
-                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2}">
+                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 3}">
                             <li class="link-submenu-cadastro"><a href="#">Cadastro</a>
                                 <ul class="sub-menu">
-                                    <c:if test="${usuario.getAutorizar() == 2}">
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                                         <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpCadastrar" method="get">Empresa</a></li>
                                         </c:if>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliCadastrar" method="get">Cliente</a></li>
@@ -47,15 +47,19 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliConsultar" method="get">Cliente</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncConsultar" method="get">Funcionário</a></li>
-                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdConsultar" method="get">Produto</a></li>
+                                        <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 3 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 5}">
+                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdConsultar" method="get">Produto</a></li>
+                                        </c:if>
                                 </ul>
                             </li>
                             <li class="link-submenu-consulta"><a href="#">Relatórios</a>
                                 <ul class="sub-menu">
-                                    <c:if test="${usuario.getAutorizar() == 2}">
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                                         <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Global" method="get">Relatório Global</a></li>
                                         </c:if>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Regional" method="get">Relatório Regional</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Produto" method="get">Relatório Produto</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Cliente" method="get">Relatório Cliente</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -64,7 +68,7 @@
                     </ul>
                 </div><!--container-->
             </nav>    
-        </header>                            
+        </header>                
 
         <div class="wrap">
             <div class="container">
@@ -88,10 +92,11 @@
                             <th>Produto</th>
                             <th>Tipo Produto</th>
                             <th>Quantidade</th>
-                            <th>Origem</th>
                             <th>Valor Unitário</th>
-                            <th>Descricao</th>
-
+                            <c:if test="${usuario.getAutorizar() == 4 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1}">
+                                <th>Inativar/Ativar</th>
+                                <th>Alterar</th>
+                            </c:if>           
                         </tr>
 
                         <c:forEach items="${produto}" var="prod" varStatus="stat">
@@ -100,24 +105,27 @@
                                 <td> <c:out value="${prod.getProduto()}"/> </td>
                                 <td> <c:out value="${prod.getTipoProd()}"/> </td>
                                 <td> <c:out value="${prod.getQtdProd()}"/> </td>
-                                <td> <c:out value="${prod.getOrigem()}"/> </td>
                                 <td> <c:out value="${prod.getValorUnitario()}"/> </td>
-                                <td> <c:out value="${prod.getDescricao()}"/> </td>
-                                <td> 
-                                    <a href="ProdCadastrar?id=<c:out value='${prod.getId()}'/>" 
-                                       class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
-                                </td>
+                                <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 4}">       
+                                    <td> 
+                                        <a href="ProdCadastrar?id=<c:out value='${prod.getId()}'/>" 
+                                           class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
+                                    </td>
 
-                                <td>
-                                    <a href="ProdDeletar?id=<c:out value='${prod.getId()}'/>" 
-                                       class="btn-delete"> <i class="fas fa-times"> </i> </a>
-                                </td>
+                                    <td>
+                                        <a href="ProdDeletar?id=<c:out value='${prod.getId()}'/>" 
+                                           class="btn-delete"> <i class="fas fa-times"> </i> </a>
+                                    </td>
+                                </c:if> 
                             </tr>
                         </c:forEach>
+                        <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 4}"> 
+                            <tr>
+                                <td> <a href="ProdCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a ></td>
+                            </tr>
+                        </c:if> 
 
-                        <tr>
-                            <td> <a href="ProdCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a ></td>
-                        </tr>
+
                     </table>
                 </form>
             </div>

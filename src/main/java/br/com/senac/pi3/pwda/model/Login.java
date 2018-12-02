@@ -7,20 +7,15 @@ public class Login implements Serializable {
 
     private int id;
     private int func;
+    private int idEmp;
     private int autorizar;
     private String login;
     private String senha;
-    private String hashSenha;
     private String permissao;
     private String empresa;
     private int inativo;
 
     public Login() {
-    }
-
-    public Login(String login, String senha) {
-        this.login = login;
-        setSenha(senha);
     }
 
     public int getId() {
@@ -38,6 +33,15 @@ public class Login implements Serializable {
     public void setFunc(int func) {
         this.func = func;
     }
+
+    public int getIdEmp() {
+        return idEmp;
+    }
+
+    public void setIdEmp(int idEmp) {
+        this.idEmp = idEmp;
+    }
+    
 
     public int getAutorizar() {
         return autorizar;

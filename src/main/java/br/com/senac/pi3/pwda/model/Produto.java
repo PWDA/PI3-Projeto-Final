@@ -4,7 +4,7 @@ public class Produto {
 
     private int id;
     private String produto;
-    private int tipoProd;    
+    private String tipoProd;    
     private int qtdProd;
     private String origem;
     private float valorUnitario;
@@ -28,11 +28,11 @@ public class Produto {
         this.produto = produto;
     }
 
-    public int getTipoProd() {
+    public String getTipoProd() {
         return tipoProd;
     }
 
-    public void setTipoProd(int tipoProd) {
+    public void setTipoProd(String tipoProd) {
         this.tipoProd = tipoProd;
     }
 

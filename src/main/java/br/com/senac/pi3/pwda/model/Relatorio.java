@@ -9,6 +9,7 @@ public class Relatorio {
     private String dataCompra;
     private float totFaturado;
     private String empresa;
+    private String cliente;
 
     public int getCodigo() {
         return codigo;
@@ -73,6 +74,15 @@ public class Relatorio {
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
     }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+    
     
 
 }

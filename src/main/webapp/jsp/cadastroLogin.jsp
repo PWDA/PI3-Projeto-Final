@@ -18,7 +18,10 @@
         <c:if test="${usuario.getId() == null}">
             <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
         </c:if>
-        <header>
+        <c:if test="${usuario.getAutorizar() != 4}">
+            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/jsp/home.jsp" />            
+        </c:if>
+         <header>
             <nav>
                 <div class="top-header">
                     <div class="container">
@@ -31,10 +34,10 @@
                 <div class="container">
                     <ul class="menu-principal">
                         <li><a href="./jsp/home.jsp">Home</a></li>
-                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2}">
+                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 3}">
                             <li class="link-submenu-cadastro"><a href="#">Cadastro</a>
                                 <ul class="sub-menu">
-                                    <c:if test="${usuario.getAutorizar() == 2}">
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                                         <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpCadastrar" method="get">Empresa</a></li>
                                         </c:if>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliCadastrar" method="get">Cliente</a></li>
@@ -47,15 +50,19 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliConsultar" method="get">Cliente</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncConsultar" method="get">Funcionário</a></li>
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 3 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 5}">
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdConsultar" method="get">Produto</a></li>
+                                    </c:if>
                                 </ul>
                             </li>
                             <li class="link-submenu-consulta"><a href="#">Relatórios</a>
                                 <ul class="sub-menu">
-                                    <c:if test="${usuario.getAutorizar() == 2}">
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                                         <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Global" method="get">Relatório Global</a></li>
                                         </c:if>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Regional" method="get">Relatório Regional</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Produto" method="get">Relatório Produto</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Cliente" method="get">Relatório Cliente</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -86,15 +93,25 @@
                         <label for="password">Senha</label><br>
                         <input type="text" name="password" id="password" placeholder="Digite a Senha" maxlength="150" value="${login.getSenha()}" required><br>
                         <label for="permissao">Permissão</label><br>
-                        <input type="text" name="permissao" id="permissao" placeholder="Digite a permissão de acesso" maxlength="60" value="${login.getPermissao()}" required><br> 
-                        <label for="empresa">Empresa</label><br>
-                        <input type="text" name="empresa" id="empresa" placeholder="Digite a empresa" maxlength="60" value="${login.getEmpresa()}"  required><br>
-                        <!--<select name="${login.getEmpresa()}" id="empresa">
-                            <option value="PWDA SAO PAULO" >PWDA SÃO PAULO</option>
-                            <option value="PWDA RIO DE JANEIRO">PWDA RIO DE JANEIRO</option>
-                            <option value="PWDA SALVADOR">PWDA SALVADOR</option>
-                        </select>-->
-                        <input type="submit" name="btn-cadastrar-login" value="Cadastrar">
+                        <select name="permissao" id="permissao">
+                            <option><c:out value="${login.getPermissao()}"></c:out></option>
+                                <option value="Gerente-Global">Gerente-Global</option>
+                                <option value="Gerente-Regional">Gerente-Regional</option>
+                                <option value="Diretor">Diretor</option>
+                                <option value="Técnico">Técnico</option>
+                                <option value="Venda">Venda</option>
+                                <option value="Padrão">Padrão</option>  
+                        </select></br>                        
+                            <label for="empresa">Empresa</label><br>
+                            <select name="empresa" id="empresa">
+                                <option><c:out value="${login.getEmpresa()}"></c:out></option>
+                                <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>
+                                <option value="PWDA-RIO DE JANEIRO">PWDA-RIO DE JANEIRO</option>
+                                <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option>
+                                <option value="PWDA-BAHIA">PWDA-BAHIA</option>
+                                <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>  
+                            </select>
+                            <input type="submit" name="btn-cadastrar-login" value="Cadastrar">
 
                         <c:out value="${msgErro}"/><br>
                     </form>
