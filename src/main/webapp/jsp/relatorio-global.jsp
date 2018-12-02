@@ -19,7 +19,7 @@
         <c:if test="${usuario.getId() == null}">
             <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
         </c:if>
-           <header>
+        <header>
             <nav>
                 <div class="top-header">
                     <div class="container">
@@ -54,9 +54,9 @@
                             <li class="link-submenu-consulta"><a href="#">Relatórios</a>
                                 <ul class="sub-menu">
                                     <c:if test="${usuario.getAutorizar() == 2}">
-                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Relatório Global</a></li>
+                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Global" method="get">Relatório Global</a></li>
                                         </c:if>
-                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliConsultar" method="get">Relatório Regional</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Regional" method="get">Relatório Regional</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -70,31 +70,21 @@
             <div class="container">
                 <div class="form-relatorio-global">
                     <h1>Relatório / Venda global</h1>
-
-                    <form action="">
+                    <form action="${pageContext.request.contextPath}/Relatorio-Global" method="post">
                         <label for="filial">Filial</label>
                         <select name="filial" id="filial">
-                            <option value="selecione">Selecione</option>
-                            <option value="semana1">São Paulo</option>
-                            <option value="semana2">Campina Grande</option>
-                            <option value="semana3">Brasília</option>
-                            <option value="semana4">Joinville</option>
+                            <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>
+                            <option value="PWDA-RIO DE JANEIRO">PWDA-RIO DE JANEIRO</option>
+                            <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option>
+                            <option value="PWDA-BAHIA">PWDA-BAHIA</option>
+                            <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>
+                            <option value="TODAS">TODAS</option>
                         </select><br>
 
-                        <label for="periodo">Período</label>
-                        <select name="periodo" id="periodo">
-                            <option value="selecione">Selecione</option>
-                            <option value="semana1">1º Semana</option>
-                            <option value="semana2">2º Semana</option>
-                            <option value="semana3">3º Semana</option>
-                            <option value="semana4">4º Semana</option>
-                        </select>
-                        <input type="checkbox" name="check-periodo">
-                        <label for="escolher-periodo">Escolher período</label><br>
                         <label for="de">De</label>
-                        <input type="date" name="date-de">
+                        <input type="date" name="dt_inicial">
                         <label for="ate">Até</label>
-                        <input type="date" name="ate">
+                        <input type="date" name="dt_final">
                         <input type="submit" name="btnConsultar" value="Consultar">
                     </form>
                 </div><!--form-relatorio-global-->
@@ -105,53 +95,25 @@
                 <div class="tabela-consultar">
                     <table class="table-consultar" border="1">
                         <tr>
-                            <th>Código</th>
+                            <th>Empresa</th>
+                            <th>Cod.Venda</th>
                             <th>Produto</th>
                             <th>Qtd. Comprada</th>
                             <th>Valor unitário</th>
                             <th>Valor total</th>
                             <th>Data compra</th>
                         </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>     
+                         <c:forEach items="${relatorio}" var="rel" varStatus="stat">
+                            <tr>
+                                <td> <c:out value="${rel.getEmpresa()}"/> </td>
+                                <td> <c:out value="${rel.getCodigo()}"/> </td>
+                                <td> <c:out value="${rel.getProduto()}"/> </td>
+                                <td> <c:out value="${rel.getQtdComprado()}"/> </td>
+                                <td> <c:out value="${rel.getValorUnitario()}"/> </td>
+                                <td> <c:out value="${rel.getValorTotal()}"/> </td>
+                                <td> <c:out value="${rel.getDataCompra()}"/> </td>
+                            </tr>
+                        </c:forEach>    
                     </table> 
                 </div><!--tabela-consultar-->
             </div><!--container-->
@@ -160,7 +122,11 @@
             <div class="container">
                 <form action="">
                     <label for="faturado">Total faturado</label>
-                    <input type="text" name="total-faturado">
+                    <c:forEach items="${relatorio}" var="rel" varStatus="stat">
+                        <c:if test="${rel.getTotFaturado() != 0}">
+                            <input type="text" name="total-faturado" value="${rel.getTotFaturado()}">
+                        </c:if>
+                    </c:forEach>                    
                     <input type="submit" name="btnGerar" value="Gerar">
                 </form>
             </div><!--container-->

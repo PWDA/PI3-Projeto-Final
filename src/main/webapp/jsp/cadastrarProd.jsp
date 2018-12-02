@@ -53,9 +53,9 @@
                             <li class="link-submenu-consulta"><a href="#">Relatórios</a>
                                 <ul class="sub-menu">
                                     <c:if test="${usuario.getAutorizar() == 2}">
-                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Relatório Global</a></li>
+                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Global" method="get">Relatório Global</a></li>
                                         </c:if>
-                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliConsultar" method="get">Relatório Regional</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Regional" method="get">Relatório Regional</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -81,7 +81,7 @@
                     <form action="${pageContext.request.contextPath}/ProdCadastrar" method="post">  
                         <div class="labels-dados">
                             <label for="nome">Nome</label>
-                            <label for="tipo-produto">Tipo de Produto</label>
+                            <label for="tipo-ativo">Tipo de Produto</label>
                             <label for="quantidade">Quantidade</label>
                             <label for="origem">Origem</label>
                             <label for="valor-unitario">Valor Unitário</label>
@@ -91,7 +91,19 @@
                         <div class="inputs-dados">
                             <input type="hidden" name="id" value="${produto.getId()}" required>                        
                             <input type="name" name="nome-produto" placeholder="Digite o nome do produto" maxlength="100"  value="${produto.getProduto()}" required><br>
-                            <input type="number" name="tipo-produto" placeholder="Digite o tipo do produto" maxlength="30" value="${produto.getTipoProd()}" required><br>
+                            <select name="tipo-ativo" id="tipo-ativo">
+                                <c:if test="${produto.getTipoProd()} == 'Ativo Fixo'">
+                                    <option value="Ativo Fixo">Ativo Fixo</option>
+                                    <option value="Ativo Circulante">Ativo Circulante</option>
+                                    <option value="Outros">Outros</option>
+                                </c:if>
+                                <c:if test="${produto.getTipoProd()} == 'Ativo Circulante'">
+                                    <option value="Ativo Circulante">Ativo Circulante</option>
+                                    <option value="Ativo Fixo">Ativo Fixo</option>
+                                    <option value="Outros">Outros</option>
+                                </c:if>
+                                  
+                            </select>
                             <input type="number" name="qtd" value="${produto.getQtdProd()}" required><br> 
                             <input type="text" name="origem" placeholder="Digite a origem" value="${produto.getOrigem()}" required><br> 
                             <input type="float" name="valor-unitario" placeholder="Digite o valor" maxlength="10" value="${produto.getValorUnitario()}" required><br>

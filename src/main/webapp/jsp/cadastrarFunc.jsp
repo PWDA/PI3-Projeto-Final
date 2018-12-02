@@ -53,9 +53,9 @@
                             <li class="link-submenu-consulta"><a href="#">Relatórios</a>
                                 <ul class="sub-menu">
                                     <c:if test="${usuario.getAutorizar() == 2}">
-                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Relatório Global</a></li>
+                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Global" method="get">Relatório Global</a></li>
                                         </c:if>
-                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliConsultar" method="get">Relatório Regional</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Regional" method="get">Relatório Regional</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -69,6 +69,7 @@
         <section class="cadastro">
             <div class="container">
                 <div class="cadastro">
+                    <h4 class="titulo-cad-func"><c:out value="${erro}"/></h4>
                     <c:if test="${funcionario.getId() > 0}">
                         <h2 class="titulo-cad-func">Alterar Funcionário</h2>
                     </c:if>
@@ -121,7 +122,7 @@
                             <label for="telefone">Telefone</label>
                             <label for="cargo">Cargo</label>
                             <label for="departamento">Departamento</label>
-                            <label for="numero-registro">N° Registro</label>
+                            <label for="empresa">Empresa</label>
                         </div><!--labels-->
 
                         <div class="inputs-contato">                                                  
@@ -130,9 +131,16 @@
                             <select name="cargo" id="cargo">
                                 <option value="gerente">Gerente</option>
                                 <option value="backoffice">Backoffice</option>
+                                <option value="backoffice">TI</option>
                             </select>                        
                             <input type="text" name="departamento" id="departamento" placeholder="Digite o departamento" value="${funcionario.getDepartamento()}" required><br>
-                            <input type="number" name="numero-registro" id="numero-registro" placeholder="Digite o RE" value="${funcionario.departamento}" required>
+                            <select name="empresa" id="empresa" select="${funcionario.getEmpresa()}">
+                                <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>
+                                <option value="PWDA-RIO DE JANEIRO">PWDA-RIO DE JANEIRO</option>
+                                <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option>
+                                <option value="PWDA-BAHIA">PWDA-BAHIA</option>
+                                <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>
+                            </select> 
                             <input type="submit" name="cadastrar" value="Cadastrar">
                         </div><!--inputs-->
 

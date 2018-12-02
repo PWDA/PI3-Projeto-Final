@@ -14,14 +14,33 @@ import java.util.List;
 
 public class DaoFuncionario {
 
-    public static boolean update(Funcionario func)
-            throws SQLException, Exception {
+    public static boolean update(Funcionario func) throws SQLException, Exception {
+
+        String sqlComando = "";
+        int idEmpresa = 0;
 
         Connection connection = ConnectionUtils.getConnection();
+        Statement buscaEmpresa = connection.createStatement();
 
-        String sqlComando = "UPDATE TB_FUNCIONARIO SET NOME=?, NRDOC=?, TELEFONE=?,"
+        // BUSCA O ID DA EMPRESA NA QUAL O FUNCIONARIO FOI CADASTRADO
+        ResultSet resultado
+                = buscaEmpresa.executeQuery("SELECT * FROM TB_EMPRESA WHERE EMPRESA LIKE '" + func.getEmpresa().trim() + "'");
+
+        try {
+            if (resultado != null && resultado.next()) {
+                func.setIdEmpresa(resultado.getInt("PK_ID"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        //CASO NÃO ENCONTRE A EMPRESA POR PADRÃO SALVA NA MATRIZ
+        if (idEmpresa <= 0) {
+            func.setIdEmpresa(1);
+        }
+        sqlComando = "UPDATE TB_FUNCIONARIO SET NOME=?, NRDOC=?, TELEFONE=?,"
                 + "DT_NASCIMENTO=?, NACIONALIDADE=?, ENDERECO=?, BAIRRO=?,"
-                + "CIDADE=?, UF=?, CEP=?, EMAIL=?, SEXO=?, RE=?,"
+                + "CIDADE=?, UF=?, CEP=?, EMAIL=?, SEXO=?, FK_EMPRESA=?,"
                 + "DEPARTAMENTO=?, CARGO=?, DH_ALTERACAO= NOW() WHERE (PK_ID=?)";
 
         PreparedStatement pst = connection.prepareStatement(sqlComando);
@@ -43,8 +62,7 @@ public class DaoFuncionario {
             pst.setString(10, func.getCep());
             pst.setString(11, func.getEmail());
             pst.setString(12, func.getSexo());
-
-            pst.setInt(13, func.getRegistro());
+            pst.setInt(13, func.getIdEmpresa());
             pst.setString(14, func.getDepartamento());
             pst.setString(15, func.getCargo());
 
@@ -62,14 +80,32 @@ public class DaoFuncionario {
         return true;
     }
 
-    public static boolean insert(Funcionario func)
-            throws SQLException, Exception {
+    public static boolean insert(Funcionario func) throws SQLException, Exception {
+        String sqlComando = "";
+        int idEmpresa = 0;
 
         Connection connection = ConnectionUtils.getConnection();
+        Statement buscaEmpresa = connection.createStatement();
 
-        String sqlComando = "INSERT INTO TB_FUNCIONARIO "
+        // BUSCA O ID DA EMPRESA NA QUAL O FUNCIONARIO FOI CADASTRADO
+        ResultSet resultado = buscaEmpresa.executeQuery("SELECT EMP.PK_ID FROM TB_EMPRESA AS EMP "
+                + "WHERE EMPRESA LIKE '" + func.getEmpresa().trim() + "%'");
+
+        try {
+            if (resultado != null && resultado.next()) {
+                func.setIdEmpresa(resultado.getInt("PK_ID"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        //CASO NÃO ENCONTRE A EMPRESA POR PADRÃO SALVA NA MATRIZ
+        if (idEmpresa <= 0) {
+            idEmpresa = 1;
+        }
+        sqlComando = "INSERT INTO TB_FUNCIONARIO "
                 + "(NOME, NRDOC, TELEFONE, DT_NASCIMENTO, NACIONALIDADE, ENDERECO, BAIRRO,"
-                + "CIDADE, UF, CEP, EMAIL, SEXO, RE, DEPARTAMENTO, CARGO, DH_INCLUSAO, TG_INATIVO)"
+                + "CIDADE, UF, CEP, EMAIL, SEXO, DEPARTAMENTO, CARGO, FK_EMPRESA, DH_INCLUSAO, TG_INATIVO)"
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 0);";
 
         PreparedStatement pst = connection.prepareStatement(sqlComando);
@@ -90,9 +126,9 @@ public class DaoFuncionario {
                 pst.setString(10, func.getCep());
                 pst.setString(11, func.getEmail());
                 pst.setString(12, func.getSexo());
-                pst.setInt(13, func.getRegistro());
-                pst.setString(14, func.getDepartamento());
-                pst.setString(15, func.getCargo());
+                pst.setString(13, func.getDepartamento());
+                pst.setString(14, func.getCargo());
+                pst.setInt(15, func.getIdEmpresa());
 
                 pst.execute();
             }
@@ -166,7 +202,7 @@ public class DaoFuncionario {
             throws SQLException, Exception {
 
         String sqlComando = "";
-        
+
         if (func.getInativo() == 0) {
             sqlComando = "UPDATE TB_FUNCIONARIO SET TG_INATIVO = 1, DH_ALTERACAO= NOW() WHERE PK_ID = ?";
         } else {
@@ -202,7 +238,9 @@ public class DaoFuncionario {
 
         Statement st = connection.createStatement();
 
-        ResultSet rs = st.executeQuery("SELECT * FROM TB_FUNCIONARIO WHERE PK_ID = " + id);
+        ResultSet rs = st.executeQuery(
+                "SELECT FUN.*, EMP.EMPRESA AS EMPRESA FROM TB_FUNCIONARIO AS FUN "
+                + " INNER JOIN TB_EMPRESA AS EMP ON EMP.PK_ID = FUN.FK_EMPRESA WHERE FUN.PK_ID = " + id);
 
         while (rs.next()) {
             func.setId(rs.getInt("PK_ID"));
@@ -220,7 +258,8 @@ public class DaoFuncionario {
             func.setCep(rs.getString("CEP").trim());
             func.setEmail(rs.getString("EMAIL").trim());
             func.setDepartamento(rs.getString("DEPARTAMENTO"));
-            func.setRegistro(rs.getInt("RE"));
+            func.setEmpresa(rs.getString("EMPRESA"));
+            func.setIdEmpresa(rs.getInt("FK_EMPRESA"));
             func.setInativo(rs.getInt("TG_INATIVO"));
 
         }
