@@ -4,11 +4,11 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
-    
+
 }
 
 .top-header{
-   background: #ffffff;
+    background: #ffffff;
 }
 
 .img-logo{
@@ -41,7 +41,7 @@ nav{
 .sub-menu{
     position: absolute;
     display: none;
-    padding-top: 10px; 
+    padding-top: 10px;
 }
 
 .sub-menu li{
@@ -51,22 +51,28 @@ nav{
 .sub-menu a{
     width: 100%;
     display: block;
-    
+
 }
 
 .menu-principal > li{
     list-style: none;
     margin: 0 10px;
     padding: 10px 0;
+    background: #81c69e;
+    border-radius: 5px;
+    box-shadow: 2px 2px 7px rgba(0,0,0,.2);
 }
 
+.menu-principal > li:hover{
+    box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+}
 
 
 .sub-menu-item a{
     background:#67C18D!important;
     color: white!important;
-  
-    
+
+
 }
 
 
@@ -106,7 +112,7 @@ nav{
 
 input[name=btnIncluir]{
     cursor: pointer;
-   font-size: 14px;
+    font-size: 14px;
     text-decoration: none;
     background:#0066B0;
     border-radius: 5px;
@@ -130,11 +136,11 @@ input[name=btnCarregar]{
 }
 
 .container-venda{
-   text-align: center;
+    text-align: center;
 }
 
 table{
-   margin: 0 auto;
+    margin: 0 auto;
 }
 
 
@@ -154,13 +160,13 @@ th{
     font-size: 12px;
     color: #999;
     padding: 10px;
-    border-bottom: 3px solid rgba(0,0,0,.1); 
+    border-bottom: 3px solid rgba(0,0,0,.1);
 }
 
 td{
     padding: 15px 0;
     color: #666;
-  
+
 }
 
 .btn-alterar, .btn-delete, .btn-incluir{
@@ -195,7 +201,7 @@ input[name=btn-subtotal]{
     width: 50%;
     margin: 0 auto;
     padding-bottom: 50px;
-   
+
 
 }
 
@@ -209,11 +215,11 @@ input[name=btn-subtotal]{
 
 
 .container-venda{
-   text-align: center;
+    text-align: center;
 }
 
 table{
-   margin: 0 auto;
+    margin: 0 auto;
 }
 
 
@@ -233,13 +239,13 @@ th{
     font-size: 12px;
     color: #999;
     padding: 10px;
-    border-bottom: 3px solid rgba(0,0,0,.1); 
+    border-bottom: 3px solid rgba(0,0,0,.1);
 }
 
 td{
     padding: 15px 0;
     color: #666;
-  
+
 }
 
 .btn-alterar, .btn-delete, .btn-incluir{
@@ -274,7 +280,7 @@ input[name=btn-subtotal]{
     width: 50%;
     margin: 0 auto;
     padding-bottom: 50px;
-   
+
 
 }
 
@@ -288,7 +294,7 @@ input[name=btn-subtotal]{
 
 input[name=btnCarregar]{
     cursor: pointer;
-   font-size: 14px;
+    font-size: 14px;
     text-decoration: none;
     background:#0066B0;
     border-radius: 5px;

@@ -4,11 +4,11 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
-    
+
 }
 
 .top-header{
-   background: #ffffff;
+    background: #ffffff;
 }
 
 .img-logo{
@@ -41,7 +41,7 @@ nav{
 .sub-menu{
     position: absolute;
     display: none;
-    padding-top: 10px; 
+    padding-top: 10px;
 }
 
 .sub-menu li{
@@ -51,22 +51,30 @@ nav{
 .sub-menu a{
     width: 100%;
     display: block;
-    
+
 }
 
 .menu-principal > li{
     list-style: none;
     margin: 0 10px;
     padding: 10px 0;
+    background: #81c69e;
+    border-radius: 5px;
+    box-shadow: 2px 2px 7px rgba(0,0,0,.2);
 }
+
+.menu-principal > li:hover{
+    box-shadow: 1px 1px 3px rgba(0,0,0,.2);
+}
+
 
 
 
 .sub-menu-item a{
     background:#67C18D!important;
     color: white!important;
-  
-    
+
+
 }
 
 
@@ -111,9 +119,14 @@ nav{
 
 
 .titulo-cad-func{
+    max-width: 300px;
+    margin: 50px auto;
+    border-radius: 10px;
     text-align: center;
     padding: 20px;
-    color: #333;
+    color: #fff;
+    background: #333;
+
 }
 
 .cadastro{
@@ -122,12 +135,20 @@ nav{
     padding-bottom: 50px;
 }
 
+label{
+    color: #666666;
+}
+
 form{
     display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0px 0px 50px rgba(0,0,0,.2);
+    padding: 50px 0;
+    border-radius: 10px;
+
 }
 
 input{
@@ -136,10 +157,11 @@ input{
     margin-bottom: 10px;
     outline: none;
     background: rgba(0,0,0,0.0);
-    border: 1px solid rgba(0,0,0,.5);
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 5px;
     padding: 10px;
     color: #333;
-    
+
 }
 
 select{
@@ -153,22 +175,22 @@ select{
     color: #333;
 }
 
-.inputs-dados,.inputs-contato,.inputs-endereco{  
+.inputs-dados,.inputs-contato,.inputs-endereco{
     -webkit-box-flex: 2;
     -ms-flex: 2;
     flex: 2;
-   
-    
+
+
 }
 
 .labels-dados,.labels-contato,.labels-endereco{
-   text-align: right;
+    text-align: right;
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
     margin: 0 40px;
     color: #333;
-    
+
 }
 
 input[type=image]{
@@ -195,16 +217,15 @@ input::placeholder{
 }
 
 input[type=submit]{
-    margin: 40px 0;
+    margin: 10px 0;
     padding: 0;
-    background-image:-webkit-gradient(linear, left bottom, left top, from(#00BEF4), to(#2988d1));
-    background-image:linear-gradient(to top, #00BEF4, #2988d1);
     color: white;
     cursor: pointer;
     border: 0;
     outline: none;
     border-radius: 5px;
     width: 100px;
+    background: #0066b0;
 }
 
 input[type=image]{
@@ -218,6 +239,10 @@ input[type=image]{
 input[type=image]{
     width: 100px;
     height: 100px;
+}
+
+.labels-dado{
+    margin: 0 20px;
 }
 
 footer{

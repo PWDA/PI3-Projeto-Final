@@ -16,10 +16,10 @@
     </head>
     <body>
         <c:if test="${usuario.getAutorizar() != 2}">
-            <c:redirect url=" http://localhost:8080/br.com.senac.pi3.pwda/jsp/home.jsp" />            
+            <c:redirect url=" http://localhost:8080/br.com.senac.pi3.pwda/jsp/home.jsp" />
         </c:if>
         <c:if test="${usuario.getId() == null}">
-            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
+            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />
         </c:if>
         <header>
             <nav>
@@ -28,7 +28,7 @@
                         <a href="./jsp/home.jsp">
                             <img class="img-logo" src="../img/pwda-logo.png" alt="" width="200">
                             <img class="img-logo" src="./img/pwda-logo.png" alt="" width="200">
-                        </a> 
+                        </a>
                     </div><!--container-->
                 </div><!--logo-->
                 <div class="container">
@@ -44,7 +44,7 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncCadastrar" method="get">Funcionário</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdCadastrar" method="get">Produto</a></li>
                                 </ul>
-                            </li>                        
+                            </li>
                             <li class="link-submenu-consulta"><a href="#">Consultar</a>
                                 <ul class="sub-menu">
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
@@ -66,8 +66,8 @@
                         <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
                     </ul>
                 </div><!--container-->
-            </nav>    
-        </header>                             
+            </nav>
+        </header>
 
         <section class="cadastro">
             <div class="container">
@@ -77,7 +77,7 @@
                     </c:if>
                     <c:if test="${empresa.getId() == 0}">
                         <h2 class="titulo-cad-func">Cadastro de Empresa</h2>
-                    </c:if> 
+                    </c:if>
                     <c:if test="${empresa == null}">
                         <h2 class="titulo-cad-func">Cadastro de Empresa</h2>
                     </c:if>
@@ -85,25 +85,25 @@
                         <c:out value="${erro}"/>
                     </div>
 
-                    <form action="${pageContext.request.contextPath}/EmpCadastrar" method="post">  
+                    <form action="${pageContext.request.contextPath}/EmpCadastrar" method="post">
                         <div class="labels-dados">
                             <label for="empresa">Empresa</label>
                             <label for="diretor">Diretor</label>
                             <label for="cnpj">CNPJ</label>
                             <label for="endereco">Endereço</label>
-                            <label for="bairro">Bairro</label>                      
-                            <label for="cidade">Cidade</label>                      
-                            <label for="uf">UF</label>                      
-                            <label for="cep">Cep</label>                      
-                            <label for="telefone">Telefone</label>                      
-                            <label for="email">E-mail</label>                 
+                            <label for="bairro">Bairro</label>
+                            <label for="cidade">Cidade</label>
+                            <label for="uf">UF</label>
+                            <label for="cep">Cep</label>
+                            <label for="telefone">Telefone</label>
+                            <label for="email">E-mail</label>
                         </div><!--labels-->
 
                         <div class="inputs-dados">
                             <input type="hidden" name="id" value="${emp.getId()}" required>
                             <input type="text" name="empresa" placeholder="Digite o nome da empresa" maxlength="80"  value="${emp.getEmpresa()}" required><br>
                             <input type="text" name="diretor" placeholder="Digite o nome do diretor" maxlength="80" value="${emp.getDiretor()}" required><br>
-                            <input type="text" name="cnpj" placeholder="Digite o CNPJ da empresa" maxlength="30" value="${emp.getCnpj()}" required><br> 
+                            <input type="text" name="cnpj" placeholder="Digite o CNPJ da empresa" maxlength="30" value="${emp.getCnpj()}" required><br>
                             <input type="text" name="endereco" placeholder="Digite o endereço" maxlength="120" value="${emp.getEndereco()}"  required><br>
                             <input type="text" name="bairro" placeholder="Digite o bairro" maxlength="60" value="${emp.getBairro()}"  required><br>
                             <input type="text" name="cidade" placeholder="Digite a cidade" maxlength="60" value="${emp.getCidade()}"  required><br>
@@ -113,7 +113,7 @@
                             <input type="email" name="email" placeholder="Digite o e-mail" maxlength="150" value="${emp.getEmail()}"  required><br>
                             <c:out value="${msgErro}"/><br>
                             <input type="submit" name="cadastrar" value="Cadastrar">
-                        </div><!--inputs-->                                   
+                        </div><!--inputs-->
 
                     </form>
                 </div><!--cadastro-->
@@ -127,4 +127,4 @@
         </footer>
 
     </body>
-</html> 
+</html>

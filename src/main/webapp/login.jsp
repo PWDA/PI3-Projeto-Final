@@ -16,20 +16,20 @@
 
 
     </head>
-    <body>
+    <body style = "background-image: url('img/bg-login.jpg');">
         <header>
             <div class="container">
                 <nav>
                     <div class="logo"><br>
-                        <a href="index.html"><img src="./img/pwda-logo.png" alt="" width="200"></a>   
+                        <a href="login.jsp"><img src="./img/pwda-logo.png" alt="" width="200"></a>
                     </div><!--logo-->
                 </nav>
-            </div><!--container--> 
+            </div><!--container-->
         </header>
         <section class="section-login">
 
-            <div class="login">                
-                <h2 class="text-logar">Login</h2>                  
+            <div class="login">
+                <h2 class="text-logar">Login</h2>
 
                 <form method="post" action="${pageContext.request.contextPath}/Login">
                     <input type="text" name="login" id="user" placeholder="usuário">
@@ -41,11 +41,11 @@
                             <option value="PWDA Rio de Janeiro">PWDA Rio de Janeiro</option>
                             <option value="PWDA Salvador">PWDA Salvador</option>
                         </select>
-                    </p>       
+                    </p>
                     <input class="btn-login" type="submit" name="btn-logar" value="Entrar"><br><br><br><br>
                     <c:out value="${msgErro}"/>
                 </form>
-            </div><!--login--> 
+            </div><!--login-->
 
 
         </section>
