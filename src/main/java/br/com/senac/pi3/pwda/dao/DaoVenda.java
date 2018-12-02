@@ -20,20 +20,21 @@ public class DaoVenda {
         
          Connection connection = ConnectionUtils.getConnection();
          
-        String sql = "INSERT INTO FI_ITEMVENDA (FK_VENDA, FK_PRODUTO, VL_UNITARIO, "
-                + "QUANTIDADE, DH_INCLUSAO) VALUES (?, ?, ?, ?, NOW())";
+        String sql = "INSERT INTO FI_ITEMVENDA (FK_VENDA, FK_PRODUTO, "
+                + "DH_INCLUSAO) VALUES (?, ?, NOW())";
         
         PreparedStatement pst = connection.prepareStatement(sql);
         
         try {
             if(connection != null){
                 
-                pst.setInt(1, idVenda);
-                pst.setInt(2, itemVenda.getProduto().getId());
-                pst.setDouble(3, itemVenda.getValorUnitario());
-                pst.setInt(4, itemVenda.getQuantidade());
+                for (int i = 0; i < itemVenda.getQuantidade(); i++) {
+                
+                    pst.setInt(1, idVenda);
+                    pst.setInt(2, itemVenda.getCodigoProd());                                   
 
-                pst.execute();
+                    pst.execute();
+                }
             }
 
         } finally {
@@ -46,51 +47,52 @@ public class DaoVenda {
         }
     }
     
-    public static void decrementarEstoque(ItemVenda quantidade) throws SQLException,
-            Exception {
-        
-        Connection connection = ConnectionUtils.getConnection();
-        
-        String sql = "UPDATE TB_PRODUTO SET QUANTIDADE=? WHERE PK_ID=?";
-        
-        PreparedStatement pst = connection.prepareStatement(sql);
-        
-        try {
-            if(connection != null){                
-            
-                
-                pst.setInt(1, quantidade.getProduto().getQtdProd() - quantidade.getQuantidade());
-                pst.setInt(2, quantidade.getProduto().getId());
-
-                pst.executeUpdate();
-            }
-
-        } finally {
-            if (pst != null && !pst.isClosed()) {
-                pst.close();
-            }
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        }
-    }
+//    public static void decrementarEstoque(ItemVenda quantidade) throws SQLException,
+//            Exception {
+//        
+//        Connection connection = ConnectionUtils.getConnection();
+//        
+//        String sql = "UPDATE TB_PRODUTO SET QUANTIDADE=? WHERE PK_ID=?";
+//        
+//        PreparedStatement pst = connection.prepareStatement(sql);
+//        
+//        try {
+//            if(connection != null){                
+//            
+//                
+//                pst.setInt(1, quantidade.getProduto().getQtdProd() - quantidade.getQuantidade());
+//                pst.setInt(2, quantidade.getProduto().getId());
+//
+//                pst.executeUpdate();
+//            }
+//
+//        } finally {
+//            if (pst != null && !pst.isClosed()) {
+//                pst.close();
+//            }
+//            if (connection != null && !connection.isClosed()) {
+//                connection.close();
+//            }
+//        }
+//    }
     
     public static void inserir(Venda venda) throws SQLException, Exception {
         
         Connection connection = ConnectionUtils.getConnection();
         
-        String sql = "INSERT INTO FI_VENDA (FK_CLIENTE, FK_ITEMVENDA, VL_TOTAL, "
-                + "DT_VENDA, DH_INCLUSAO) VALUES (?, ?, ?, NOW(), NOW())";
+        String sql = "INSERT INTO FI_VENDA (FK_CAIXA, FK_CLIENTE, FK_EMPRESA, VL_TOTAL, "
+                + "QUANTIDADE, DT_VENDA, DH_INCLUSAO) VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
                 
          PreparedStatement pst = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
         try {
             
-            if(connection != null){
-                connection = ConnectionUtils.getConnection();
-                pst.setInt(1, venda.getCliente().getId());
-                pst.setInt(2, 10); // nº 10 - teste com FK_ITEMVENDA
-                pst.setDouble(3, venda.getCalcularTotal());
+            if(connection != null){                
+                pst.setInt(1, venda.getIdCaixa());
+                pst.setInt(2, 1);
+                pst.setInt(3, 1);    //venda.getEmpresa()
+                pst.setDouble(4, venda.getValorTotal());
+                pst.setInt(5, venda.getQuantidade());
 
                 pst.execute();
             }
@@ -104,7 +106,7 @@ public class DaoVenda {
 
             for (ItemVenda item : venda.getItens()) {
                 inserirItemVenda(item, idVenda);
-                decrementarEstoque(item);
+                //decrementarEstoque(item);
             }
 
         } finally {

@@ -5,17 +5,17 @@ import br.com.senac.pi3.pwda.model.Venda;
 
 public class ValidarVenda {
     public static String validar(Venda venda){
-//        if (venda == null) {
-//            return "Erro na Venda";
-//        }
+        if (venda.getValorTotal() <= 0.0) {
+            return "Erro na Venda";
+        }
 //        if (venda.getCliente() == null || "".equals(venda.getCliente())) {
 //            return "É necessário informar um cliente para efetuar a venda";
 //        }
-//
-//        if (venda.getItens() == null
-//                || "".equals(venda.getItens())) {
-//            return "É necessário selecionar um produto para efetuar a venda";
-//        }
+
+        if (venda.getItens() == null
+                || "".equals(venda.getItens())) {
+            return "É necessário selecionar um produto para efetuar a venda";
+        }
         return null;
     }    
     public static String validarItemVenda(ItemVenda itemVenda){

@@ -69,7 +69,7 @@
                                 </ul>
                             </li>
                         </c:if>
-                        <li><a href="${pageContext.request.contextPath}realizar-venda.jsp">Realizar Venda</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Venda">Realizar Venda</a></li>
                         <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
                     </ul>
                 </div><!--container-->
@@ -82,20 +82,21 @@
                     <div class="container-venda">                    
                         <form method="post">                        
                             <input type="hidden" name="id" value="${produto.getId()}" >                         
-                            Qtd<input type="number" name="quantidadeVenda" placeholder="Quantidade..." value="${produto.getQtdProd()}" >
+                            Qtd<input type="number" name="quantidadeVenda" placeholder="Quantidade..." min="1">
                             Nome<input type="text" name="vendaProduto" placeholder = "Produto..." value="${produto.getProduto()}" value="${buscar}" >
-                            Valor Unitário<input type="text" name="valorUnitario" value="${produto.getValorUnitario()}" >
+                            Valor Unitário<input type="text" name="valorUnitario" value="${produto.getValorUnitario()}" readonly="true">
                             <input type="text" name="valorTotal">                        
                             <input type="submit" name="btnCarregar" value="Carregar" formaction="CarregarProd">                      
-                            <input type="submit" name="btnIncluir" value="Incluir" formaction="IncluirProd" >                                                           
+                            <input type="submit" name="btnIncluir" value="Incluir" formaction="IncluirProd" > <br>
+                            <c:out value="${msgErro}"/> <br>
                         </form>                                                  
 
                         <div class="listar-venda">
 
                             <table>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Qtd</th>
+                                    <th>Cód Produto</th>
+                                    <th>Quantidade</th>
                                     <th>Produto</th>
                                     <th>Valor unitário</th>
                                     <th>Valor total</th>
@@ -108,10 +109,6 @@
                                         <td> <c:out value="${prod.getProduto()}"/> </td>                                                                                    
                                         <td> <c:out value="${prod.getValorUnitario()}"/> </td>
                                         <td> <c:out value="${prod.getValorTotal()}"/> </td>                            
-                                        <td> 
-                                            <a href="###?id=<c:out value='${prod.getId()}'/>" 
-                                               class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
-                                        </td>
 
                                         <td>
                                             <a href="DeleteVenda?id=<c:out value='${prod.getId()}'/>" 
@@ -122,9 +119,10 @@
 
 
                             </table>
-                            <form class="confirmar" action="">
+                            <form class="confirmar" action="${pageContext.request.contextPath}/RealizarVenda" method="post">
+                                <input type="hidden" name="idCaixa" value="${usuario.getId()}">
                                 <label for="">SUBTOTAL:</label>
-                                <input class="campo-subtotal" type="text" name="subtotal" value="${subtotal}">
+                                <input class="campo-subtotal" type="text" name="subtotal" value="${subtotal}" readonly="true">
                                 <input type="submit" name="btn-subtotal" value="Confirmar">
                             </form>
                         </div><!--listar-venda-->

@@ -6,6 +6,7 @@ public class ItemVenda {
     private int quantidade;
     private Double valorUnitario;
     private int codigoVenda;
+    private int codigoProd; 
 
     public ItemVenda() {
 //        this.codigoItemVenda = 0;
@@ -54,5 +55,13 @@ public class ItemVenda {
     public void setCodigoVenda(int codigoVenda) {
         this.codigoVenda = codigoVenda;
     }           
+
+    public int getCodigoProd() {
+        return codigoProd;
+    }
+
+    public void setCodigoProd(int codigoProd) {
+        this.codigoProd = codigoProd;
+    }
     
 }
