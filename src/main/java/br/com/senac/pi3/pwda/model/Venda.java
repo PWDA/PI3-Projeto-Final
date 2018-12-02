@@ -10,14 +10,13 @@ public class Venda {
     private Date dataVenda;
     private Double valorTotal;
     private List<ItemVenda> itens;
-    private Pessoa cliente;
+    private int IdCliente;
     private int idCaixa;
     private int quantidade;
     private int empresa;
     
     public Venda() {
         this.itens = new ArrayList<ItemVenda>();
-        this.cliente = new Pessoa();
     }
 
     public int getCodigoVenda() {
@@ -52,14 +51,14 @@ public class Venda {
         this.itens = itens;
     }
 
-    public Pessoa getCliente() {
-        return cliente;
+    public int getIdCliente() {
+        return IdCliente;
     }
 
-    public void setCliente(Pessoa cliente) {
-        this.cliente = cliente;
+    public void setIdCliente(int IdCliente) {
+        this.IdCliente = IdCliente;
     }
-
+    
     public int getIdCaixa() {
         return idCaixa;
     }

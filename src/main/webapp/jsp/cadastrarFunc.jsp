@@ -92,8 +92,10 @@
                             <input type="name" name="nome" placeholder="Digite o nome" maxlength="100"  value="${funcionario.getNome()}" required><br>
                             <input type="text" name="NrDocumento" placeholder="Digite o numero de documento" maxlength="30" value="${funcionario.getNumDocumento()}" required><br>
                             <input type="date" name="data-nascimento" value="${funcionario.getDataNasci()}" required><br>                               
-                            <select name="sexo" id="sexo" value="${funcionario.getSexo()}">
-                                <option value="Masculino">Masculino</option>
+                            <select name="sexo" id="sexo" value="${funcionario.getSexo()}">                                
+                                
+                                <option> <c:out value="${funcionario.getSexo()}"></c:out> </option>
+                                <option <c:out value="${funcionario.getSexo()}"></c:out> value="Masculino">Masculino</option>
                                 <option value="Feminino">Feminino</option>
                                 <option value="Outros">Outros</option>
                             </select><br>        

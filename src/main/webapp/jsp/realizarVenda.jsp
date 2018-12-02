@@ -22,7 +22,39 @@
             }    
         </script>
         -->
-
+        
+        <!--
+        <script>
+            function includeHTML() {
+              var z, i, elmnt, file, xhttp;
+              /*loop through a collection of all HTML elements:*/
+              z = document.getElementsByTagName("*");
+              for (i = 0; i < z.length; i++) {
+                elmnt = z[i];
+                /*search for elements with a certain atrribute:*/
+                file = elmnt.getAttribute("w3-include-html");
+                if (file) {
+                  /*make an HTTP request using the attribute value as the file name:*/
+                  xhttp = new XMLHttpRequest();
+                  xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4) {
+                      if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                      if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                      /*remove the attribute, and call this function once more:*/
+                      elmnt.removeAttribute("w3-include-html");
+                      includeHTML();
+                    }
+                  } 
+                  xhttp.open("GET", file, true);
+                  xhttp.send();
+                  /*exit the function:*/
+                  return;
+                }
+              }
+            }
+        </script>
+        -->
+        
     </head>
     <body>
         <c:if test="${usuario.getId() == null}">
@@ -81,13 +113,18 @@
                     <h2 class="chamada-venda">Agora é a hora de realizar a venda!</h2>
                     <div class="container-venda">                    
                         <form method="post">                        
-                            <input type="hidden" name="id" value="${produto.getId()}" >                         
-                            Qtd<input type="number" name="quantidadeVenda" placeholder="Quantidade..." min="1">
+                                                        
+                            CPF<input type="text" name="cpf" placeholder="Digite o CPF/CNPJ para buscar" value="${cliente.getNumDocumento()}">
+                            Nome<input type="text" name="nomeCli" placeholder="Nome do Cliente" value="${cliente.getNome()}" readonly="true">
+                            <input type="submit" name="btnCli" value="Buscar Cliente" formaction="CarregarCli"><br>
+                            
+                            <input type="hidden" name="id" value="${produto.getId()}" >                              
                             Nome<input type="text" name="vendaProduto" placeholder = "Produto..." value="${produto.getProduto()}" value="${buscar}" >
                             Valor Unitário<input type="text" name="valorUnitario" value="${produto.getValorUnitario()}" readonly="true">
-                            <input type="text" name="valorTotal">                        
-                            <input type="submit" name="btnCarregar" value="Carregar" formaction="CarregarProd">                      
+                            Qtd<input type="number" name="quantidadeVenda" placeholder="Quantidade..." min="1">
+                            <input type="submit" name="btnCarregar" value="Carregar Produto" formaction="CarregarProd">                      
                             <input type="submit" name="btnIncluir" value="Incluir" formaction="IncluirProd" > <br>
+                                                        
                             <c:out value="${msgErro}"/> <br>
                         </form>                                                  
 
@@ -117,13 +154,19 @@
                                     </tr>
                                 </c:forEach>
 
-
+                                    
                             </table>
                             <form class="confirmar" action="${pageContext.request.contextPath}/RealizarVenda" method="post">
                                 <input type="hidden" name="idCaixa" value="${usuario.getId()}">
+                                <input type="hidden" name="idCliente" value="${cliente.getId()}" >
                                 <label for="">SUBTOTAL:</label>
                                 <input class="campo-subtotal" type="text" name="subtotal" value="${subtotal}" readonly="true">
                                 <input type="submit" name="btn-subtotal" value="Confirmar">
+                                
+                                <!--
+                                <div w3-include-html="./jsp/consultarCli.jsp"></div>
+                                -->
+                                
                             </form>
                         </div><!--listar-venda-->
                     </div><!--container-venda-->
@@ -133,5 +176,11 @@
                 </div>
             </div><!--container-->
         </section><!--venda-->
+        
+        <!-- 
+        <script>
+            includeHTML();
+        </script>
+        -->
     </body>
 </html>

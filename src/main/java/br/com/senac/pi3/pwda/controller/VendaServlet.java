@@ -3,6 +3,7 @@ package br.com.senac.pi3.pwda.controller;
 import br.com.senac.pi3.pwda.dao.DaoVenda;
 import br.com.senac.pi3.pwda.model.ItemVenda;
 import br.com.senac.pi3.pwda.model.Login;
+import br.com.senac.pi3.pwda.model.Pessoa;
 import br.com.senac.pi3.pwda.model.Produto;
 import br.com.senac.pi3.pwda.model.Venda;
 import br.com.senac.pi3.pwda.servico.ServicoVenda;
@@ -18,11 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "VendaServlet", urlPatterns = {"/Venda", "/CarregarProd", "/IncluirProd", "/DeleteVenda", "/RealizarVenda"})
+@WebServlet(name = "VendaServlet", urlPatterns = {"/Venda", "/CarregarProd", "/IncluirProd", "/DeleteVenda", "/RealizarVenda", "/CarregarCli"})
 public class VendaServlet extends HttpServlet {
         
     private List<Produto> listaProd = new ArrayList<Produto>();
     Venda venda = null;
+    Pessoa cliente;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,6 +42,7 @@ public class VendaServlet extends HttpServlet {
                 if (pagina.endsWith("Venda")) { 
                     if(!listaProd.isEmpty()){
                         listaProd.clear();
+                        cliente = null;
                     }    
 
                     RequestDispatcher rd                        
@@ -71,6 +74,10 @@ public class VendaServlet extends HttpServlet {
             
             if (pagina.endsWith("RealizarVenda")) {            
                 finalizarVenda(request, response);
+            }
+            
+            if(pagina.endsWith("CarregarCli")){
+                clienteCarregar(request, response);
             }
 
         } catch (Exception ex) {
@@ -104,7 +111,8 @@ public class VendaServlet extends HttpServlet {
             if(!listaProd.isEmpty()){
                     request.setAttribute("listaProduto", listaProd);      
             }                
-            request.setAttribute("produto", prod);       
+            request.setAttribute("produto", prod);  
+            request.setAttribute("cliente", cliente);
             rd.forward(request, response);
             
         } catch (Exception e) {
@@ -129,7 +137,8 @@ public class VendaServlet extends HttpServlet {
             request.setAttribute("subtotal", subtotal);
             if(!listaProd.isEmpty()){
                 request.setAttribute("listaProduto", listaProd);      
-            }                      
+            }    
+            request.setAttribute("cliente", cliente);
             rd.forward(request, response);
                                         
         }                        
@@ -168,6 +177,7 @@ public class VendaServlet extends HttpServlet {
             if(!listaProd.isEmpty()){
                 request.setAttribute("listaProduto", listaProd);      
             }       
+            request.setAttribute("cliente", cliente);
             rd.forward(request, response); 
             
         } catch (Exception e) {
@@ -195,7 +205,8 @@ public class VendaServlet extends HttpServlet {
             request.setAttribute("subtotal", subtotal);
             if(!listaProd.isEmpty()){
                 request.setAttribute("listaProduto", listaProd);      
-            }                      
+            }   
+            request.setAttribute("cliente", cliente);
             rd.forward(request, response);                    
         }             
     }
@@ -232,7 +243,8 @@ public class VendaServlet extends HttpServlet {
         request.setAttribute("subtotal", subtotal); 
         if(!listaProd.isEmpty()){
             request.setAttribute("listaProduto", listaProd);      
-        }       
+        }      
+        request.setAttribute("cliente", cliente);
         rd.forward(request, response);            
     }
     
@@ -248,6 +260,7 @@ public class VendaServlet extends HttpServlet {
             String retorno = null;                
 
             double valorTotal = Double.parseDouble(request.getParameter("subtotal"));
+            int idCliente = Integer.parseInt(request.getParameter("idCliente"));
 
             List<ItemVenda> listaItemVenda = new ArrayList<ItemVenda>();
             for (int i = 0; i < listaProd.size(); i++) {
@@ -258,6 +271,7 @@ public class VendaServlet extends HttpServlet {
                 venda.setQuantidade(listaProd.get(i).getQtdProd());                                            
                 listaItemVenda.add(itemVenda);               
             } 
+            venda.setIdCliente(idCliente);
             venda.setItens(listaItemVenda);        
 //            venda.setFormaPagamento(formaPagamento);
             venda.setIdCaixa(idCaixa);
@@ -267,6 +281,7 @@ public class VendaServlet extends HttpServlet {
 
             if (retorno == null) { 
                 listaProd.clear();
+                cliente = null;                
                 RequestDispatcher rd
                             = request.getRequestDispatcher("./jsp/home.jsp");
                 response.sendRedirect("./jsp/home.jsp"); 
@@ -284,6 +299,64 @@ public class VendaServlet extends HttpServlet {
             rd.forward(request, response);
         }            
                                          
+    }
+    
+    protected void clienteCarregar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception {
+        
+        try {
+            
+            String busca = request.getParameter("cpf");        
+            
+             
+            cliente = DaoVenda.selectCli(busca);                    
+
+            //faz calculo do subtotal
+            float subtotal = 0;
+            for (int i = 0; i < listaProd.size(); i++) {
+
+                subtotal += listaProd.get(i).getValorTotal();
+            }
+
+            Login usuario = Comuns.getUsuarioLogado();
+            HttpSession sessao = request.getSession();
+            sessao.setAttribute("usuario", usuario.getId());
+            sessao.setAttribute("usuario", usuario);
+
+            RequestDispatcher rd = request.getRequestDispatcher("/jsp/realizarVenda.jsp"); 
+            request.setAttribute("subtotal", subtotal); 
+            if(!listaProd.isEmpty()){
+                    request.setAttribute("listaProduto", listaProd);      
+            }                
+            request.setAttribute("cliente", cliente);       
+            rd.forward(request, response);
+            
+        } catch (Exception e) {
+            
+            //faz calculo1 do subtotal
+            float subtotal = 0;
+            if(!listaProd.isEmpty()){
+
+                for (int i = 0; i < listaProd.size(); i++) {
+
+                    subtotal += listaProd.get(i).getValorTotal();
+                }
+            }
+
+            Login usuario = Comuns.getUsuarioLogado();
+            HttpSession sessao = request.getSession();
+            sessao.setAttribute("usuario", usuario.getId());
+            sessao.setAttribute("usuario", usuario);
+            
+            request.setAttribute("msgErro", "Informar o Código do Produto");
+            RequestDispatcher rd = request.getRequestDispatcher("/jsp/realizarVenda.jsp");
+            request.setAttribute("subtotal", subtotal);
+            if(!listaProd.isEmpty()){
+                request.setAttribute("listaProduto", listaProd);      
+            }     
+            request.setAttribute("cliente", cliente);
+            rd.forward(request, response);
+                                        
+        }                        
     }
 
 }
