@@ -69,7 +69,7 @@
         <section class="cadastro">
             <div class="container">
                 <div class="cadastro">
-                    <h4 class="titulo-cad-func"><c:out value="${erro}"/></h4>
+                    <h4 class="titulo-erro"><c:out value="${erro}"/></h4>
                     <c:if test="${funcionario.getId() > 0}">
                         <h2 class="titulo-cad-func">Alterar Funcionário</h2>
                     </c:if>

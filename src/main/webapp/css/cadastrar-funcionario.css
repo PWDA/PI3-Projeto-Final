@@ -129,6 +129,14 @@ nav{
 
 }
 
+.titulo-erro{
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: center;
+    color: #555555;
+
+}
+
 .cadastro{
     width: 90%;
     margin: 0 auto;
