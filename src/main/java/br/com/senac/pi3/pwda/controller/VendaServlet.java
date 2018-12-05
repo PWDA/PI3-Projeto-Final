@@ -32,7 +32,7 @@ public class VendaServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        String pagina = request.getRequestURI();  
+        String pagina = request.getRequestURI();        
                 
             try {
                 if (pagina.endsWith("DeleteVenda")) {
@@ -228,10 +228,13 @@ public class VendaServlet extends HttpServlet {
         }   
         
         //faz calculo do subtotal
-        float subtotal = 0;
-        for (int i = 0; i < listaProd.size(); i++) {
+        float subtotal = 0;      
+        if(!listaProd.isEmpty()){
             
-            subtotal += listaProd.get(i).getValorTotal();
+            for (int i = 0; i < listaProd.size(); i++) {
+
+                subtotal += listaProd.get(i).getValorTotal();
+            }
         }
         
         Login usuario = Comuns.getUsuarioLogado();
@@ -239,7 +242,7 @@ public class VendaServlet extends HttpServlet {
         sessao.setAttribute("usuario", usuario.getId());
         sessao.setAttribute("usuario", usuario);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/jsp/realizarVenda.jsp");  
+        RequestDispatcher rd = request.getRequestDispatcher("/jsp/realizarVenda.jsp");          
         request.setAttribute("subtotal", subtotal); 
         if(!listaProd.isEmpty()){
             request.setAttribute("listaProduto", listaProd);      

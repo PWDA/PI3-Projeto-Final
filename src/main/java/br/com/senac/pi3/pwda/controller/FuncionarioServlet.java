@@ -31,7 +31,7 @@ public class FuncionarioServlet extends HttpServlet {
             } else if (pagina.endsWith("FuncCadastrar")) {
                 funcionarioDigitar(request, response);
             } else if (pagina.endsWith("FuncDeletar")) {
-                funcionarioDeletar(request, response);
+                funcionarioInativar(request, response);
             } else if (pagina.endsWith("LoginCadastrar")) {
                 loginBuscar(request, response);
             }
@@ -89,9 +89,8 @@ public class FuncionarioServlet extends HttpServlet {
         funcionario.setCep(request.getParameter("cep"));
         funcionario.setCidade(request.getParameter("cidade"));
         funcionario.setUf(request.getParameter("uf"));
+        funcionario.setEmpresa(request.getParameter("empresa"));
 
-        Integer re = Integer.parseInt(request.getParameter("numero-registro"));
-        funcionario.setRegistro(re);
         try {
 
             boolean resposta = ServicoFuncionario.insertFunc(funcionario);
@@ -102,7 +101,7 @@ public class FuncionarioServlet extends HttpServlet {
             }
 
         } catch (Exception ex) {
-            RequestDispatcher rd = request.getRequestDispatcher("Funcionario/FuncionarioDigitar.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("./jsp/cadastrarFunc.jsp");
 
             request.setAttribute("funcionario", funcionario);
             request.setAttribute("erro", ex.getMessage());
@@ -149,7 +148,7 @@ public class FuncionarioServlet extends HttpServlet {
         }
     }
 
-    protected void funcionarioDeletar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception {
+    protected void funcionarioInativar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Exception {
         int id = Integer.parseInt(request.getParameter("id"));
 
         try {

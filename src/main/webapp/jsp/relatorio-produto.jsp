@@ -67,26 +67,26 @@
                                 </ul>
                             </li>
                         </c:if>
-                        <li><a href="${pageContext.request.contextPath}/Venda">Realizar Venda</a></li>
+                        <li><a href="${pageContext.request.contextPath}realizar-venda.jsp">Realizar Venda</a></li>
                         <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
                     </ul>
                 </div><!--container-->
             </nav>    
-        </header>          
+        </header>        
         <section>
             <div class="container">
                 <div class="form-relatorio-global">
-                    <h1>Relatório / Venda global</h1>
-                    <form action="${pageContext.request.contextPath}/Relatorio-Global" method="post">
-                        <label for="filial">Filial: </label>
-                        <select name="filial" id="filial">
-                            <option value="TODAS">TODAS</option>
-                            <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>
-                            <option value="PWDA-RIO DE JANEIRO">PWDA-RIO DE JANEIRO</option>
-                            <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option>
-                            <option value="PWDA-BAHIA">PWDA-BAHIA</option>
-                            <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>  
-                        </select><br><br>
+                    <h1>Relatório / Agrupado por produto</h1>
+                    <form action="${pageContext.request.contextPath}/Relatorio-Produto" method="post">
+                        <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
+                            <label for="filial">Filial: </label>
+                          <option value="TODAS">TODAS</option>
+                                <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>
+                                <option value="PWDA-RIO DE JANEIRO">PWDA-RIO DE JANEIRO</option>
+                                <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option>
+                                <option value="PWDA-BAHIA">PWDA-BAHIA</option>
+                                <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>  
+                        </c:if>
 
                         <label for="de">De</label>
                         <input type="date" name="dt_inicial">
@@ -103,20 +103,18 @@
                     <table class="table-consultar" border="1">
                         <tr>
                             <th>Empresa</th>
-                            <th>Cod.Venda</th>
+                            <th>Cod.Produto</th>
                             <th>Produto</th>
-                            <th>Cliente</th>
                             <th>Qtd. Comprada</th>
                             <th>Valor unitário</th>
                             <th>Valor total</th>
-                            <th>Data compra</th>
+                            <th>Ultima compra</th>
                         </tr>
                         <c:forEach items="${relatorio}" var="rel" varStatus="stat">
                             <tr>
                                 <td> <c:out value="${rel.getEmpresa()}"/> </td>
                                 <td> <c:out value="${rel.getCodigo()}"/> </td>
                                 <td> <c:out value="${rel.getProduto()}"/> </td>
-                                <td> <c:out value="${rel.getCliente()}"/> </td>
                                 <td> <c:out value="${rel.getQtdComprado()}"/> </td>
                                 <td> <c:out value="${rel.getValorUnitario()}"/> </td>
                                 <td> <c:out value="${rel.getValorTotal()}"/> </td>

@@ -25,7 +25,7 @@ public class DaoProduto {
         try {
 
             pst.setString(1, prod.getProduto());
-            pst.setInt(2, prod.getTipoProd());
+            pst.setString(2, prod.getTipoProd());
             pst.setInt(3, prod.getQtdProd());
             pst.setString(4, prod.getOrigem());
             pst.setDouble(5, prod.getValorUnitario());
@@ -51,7 +51,7 @@ public class DaoProduto {
         Connection connection = ConnectionUtils.getConnection();
 
         String sqlComando = "INSERT INTO TB_PRODUTO"
-                + "(PRODUTO, FK_TIPOPROD, QUANTIDADE, ORIGEM, VL_UNITARIO, DESCRICAO, DH_INCLUSAO,"
+                + "(PRODUTO, TIPOPROD, QUANTIDADE, ORIGEM, VL_UNITARIO, DESCRICAO, DH_INCLUSAO,"
                 + "TG_INATIVO) VALUES (?, ?, ?, ?, ?, ?, NOW(), 0);";
 
         PreparedStatement pst = connection.prepareStatement(sqlComando);
@@ -60,7 +60,7 @@ public class DaoProduto {
             if (connection != null) {
 
                 pst.setString(1, prod.getProduto());
-                pst.setInt(2, prod.getTipoProd());
+                pst.setString(2, prod.getTipoProd());
                 pst.setInt(3, prod.getQtdProd());
                 pst.setString(4, prod.getOrigem());
                 pst.setFloat(5, prod.getValorUnitario());
@@ -107,7 +107,7 @@ public class DaoProduto {
         }
 
         ResultSet resultado = pst.executeQuery(
-                "SELECT PK_ID, PRODUTO, FK_TIPOPROD, QUANTIDADE, ORIGEM, "
+                "SELECT PK_ID, PRODUTO, TIPOPROD, QUANTIDADE, ORIGEM, "
                 + "VL_UNITARIO, DESCRICAO FROM TB_PRODUTO WHERE PRODUTO LIKE'%" + filtro + "%'" + filtro2 + ";");
 
         while (resultado.next()) {
@@ -115,7 +115,7 @@ public class DaoProduto {
             Produto prod = new Produto();
             prod.setId(resultado.getInt("PK_ID"));
             prod.setProduto(resultado.getString("PRODUTO"));
-            prod.setTipoProd(resultado.getInt("FK_TIPOPROD"));
+            prod.setTipoProd(resultado.getString("TIPOPROD"));
             prod.setQtdProd(resultado.getInt("QUANTIDADE"));
             prod.setOrigem(resultado.getString("ORIGEM"));
             prod.setValorUnitario(resultado.getFloat("VL_UNITARIO"));
@@ -172,7 +172,7 @@ public class DaoProduto {
 
             prod.setId(rs.getInt("PK_ID"));
             prod.setProduto(rs.getString("PRODUTO"));
-            prod.setTipoProd(rs.getInt("FK_TIPOPROD"));
+            prod.setTipoProd(rs.getString("TIPOPROD"));
             prod.setQtdProd(rs.getInt("QUANTIDADE"));
             prod.setOrigem(rs.getString("ORIGEM"));
             prod.setValorUnitario(rs.getFloat("VL_UNITARIO"));

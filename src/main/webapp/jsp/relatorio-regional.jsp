@@ -4,8 +4,9 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>Relatório Regional</title>
-        <link rel="stylesheet" href="css/relatorio-regional.css">
+        <title>Relatório Global</title>
+        <link rel="stylesheet" href="./css/relatorio-global.css">
+        <link rel="stylesheet" href="../css/relatorio-global.css">
         <!--google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
 
@@ -18,7 +19,10 @@
         <c:if test="${usuario.getId() == null}">
             <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
         </c:if>
-        <header>
+         <c:if test="${usuario.getAutorizar() == 5 || usuario.getAutorizar() == 3}">
+            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/jsp/home.jsp" />            
+        </c:if>
+      <header>
             <nav>
                 <div class="top-header">
                     <div class="container">
@@ -31,10 +35,10 @@
                 <div class="container">
                     <ul class="menu-principal">
                         <li><a href="./jsp/home.jsp">Home</a></li>
-                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2}">
+                            <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 3}">
                             <li class="link-submenu-cadastro"><a href="#">Cadastro</a>
                                 <ul class="sub-menu">
-                                    <c:if test="${usuario.getAutorizar() == 2}">
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                                         <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpCadastrar" method="get">Empresa</a></li>
                                         </c:if>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliCadastrar" method="get">Cliente</a></li>
@@ -47,15 +51,19 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliConsultar" method="get">Cliente</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncConsultar" method="get">Funcionário</a></li>
-                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdConsultar" method="get">Produto</a></li>
+                                        <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 3 || usuario.getAutorizar() == 4 || usuario.getAutorizar() == 5}">
+                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdConsultar" method="get">Produto</a></li>
+                                        </c:if>
                                 </ul>
                             </li>
                             <li class="link-submenu-consulta"><a href="#">Relatórios</a>
                                 <ul class="sub-menu">
-                                    <c:if test="${usuario.getAutorizar() == 2}">
-                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Relatório Global</a></li>
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
+                                        <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Global" method="get">Relatório Global</a></li>
                                         </c:if>
-                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/CliConsultar" method="get">Relatório Regional</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Regional" method="get">Relatório Regional</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Produto" method="get">Relatório Produto</a></li>
+                                    <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/Relatorio-Cliente" method="get">Relatório Cliente</a></li>
                                 </ul>
                             </li>
                         </c:if>
@@ -64,30 +72,19 @@
                     </ul>
                 </div><!--container-->
             </nav>    
-        </header>  
+        </header>         
         <section>
             <div class="container">
-                <div class="form-relatorio-regional">
+                <div class="form-relatorio-global">
                     <h1>Relatório / Venda regional</h1>
-
-                    <form action="">
-                        <label for="periodo">Período</label>
-                        <select name="periodo" id="periodo">
-                            <option value="selecione">Selecione</option>
-                            <option value="semana1">1º Semana</option>
-                            <option value="semana2">2º Semana</option>
-                            <option value="semana3">3º Semana</option>
-                            <option value="semana4">4º Semana</option>
-                        </select>
-                        <input type="checkbox" name="check-periodo">
-                        <label for="escolher-periodo">Escolher período</label><br>
+                    <form action="${pageContext.request.contextPath}/Relatorio-Regional" method="post">
                         <label for="de">De</label>
-                        <input type="date" name="date-de">
+                        <input type="date" name="dt_inicial">
                         <label for="ate">Até</label>
-                        <input type="date" name="ate">
+                        <input type="date" name="dt_final">
                         <input type="submit" name="btnConsultar" value="Consultar">
                     </form>
-                </div><!--form-relatorio-regional-->
+                </div><!--form-relatorio-global-->
             </div><!--container-->
         </section>
         <section class="section-consultar">
@@ -95,53 +92,27 @@
                 <div class="tabela-consultar">
                     <table class="table-consultar" border="1">
                         <tr>
-                            <th>Código</th>
+                            <th>Empresa</th>
+                            <th>Cod.Venda</th>
                             <th>Produto</th>
+                            <th>Cliente</th>
                             <th>Qtd. Comprada</th>
                             <th>Valor unitário</th>
                             <th>Valor total</th>
                             <th>Data compra</th>
                         </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>
-                        <tr>
-                            <td>4324</td>
-                            <td>Sopinha</td>
-                            <td>50</td>
-                            <td>3,00</td>
-                            <td>150,00</td>
-                            <td>23/01/1993</td>
-                        </tr>     
+                        <c:forEach items="${relatorio}" var="rel" varStatus="stat">
+                            <tr>
+                                <td> <c:out value="${rel.getEmpresa()}"/> </td>
+                                <td> <c:out value="${rel.getCodigo()}"/> </td>
+                                <td> <c:out value="${rel.getProduto()}"/> </td>
+                                <td> <c:out value="${rel.getCliente()}"/> </td>
+                                <td> <c:out value="${rel.getQtdComprado()}"/> </td>
+                                <td> <c:out value="${rel.getValorUnitario()}"/> </td>
+                                <td> <c:out value="${rel.getValorTotal()}"/> </td>
+                                <td> <c:out value="${rel.getDataCompra()}"/> </td>
+                            </tr>
+                        </c:forEach>    
                     </table> 
                 </div><!--tabela-consultar-->
             </div><!--container-->
@@ -150,8 +121,11 @@
             <div class="container">
                 <form action="">
                     <label for="faturado">Total faturado</label>
-                    <input type="text" name="total-faturado">
-                    <input type="submit" name="btnGerar" value="Gerar">
+                    <c:forEach items="${relatorio}" var="rel" varStatus="stat">
+                        <c:if test="${rel.getTotFaturado() != 0}">
+                            <input type="text" name="total-faturado" value="${rel.getTotFaturado()}">
+                        </c:if>
+                    </c:forEach>                    
                 </form>
             </div><!--container-->
         </section><!--faturado-->

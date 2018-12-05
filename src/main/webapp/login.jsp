@@ -28,22 +28,14 @@
         </header>
         <section class="section-login">
 
-            <div class="login">
+            <div class="login">                
                 <h2 class="text-logar">Login</h2>                  
 
                 <form method="post" action="${pageContext.request.contextPath}/Login">
                     <input type="text" name="login" id="user" placeholder="usuário">
-                    <input type="password" name="senha" id="pass" placeholder="senha"><br><br>
-                    <p>
-                        <label class="text-logar" for="empresa">Empresa</label>
-                        <select name="empresa" id="empresa">
-                            <option value="PWDA São Paulo">PWDA São Paulo</option>
-                            <option value="PWDA Rio de Janeiro">PWDA Rio de Janeiro</option>
-                            <option value="PWDA Salvador">PWDA Salvador</option>
-                        </select>
-                    </p>          
+                    <input type="password" name="senha" id="pass" placeholder="senha"><br><br>     
+                    <input class="btn-login" type="submit" name="btn-logar" value="Entrar"><br><br><br><br>
                     <c:out value="${msgErro}"/>
-                    <input class="btn-login" type="submit" name="btn-logar" value="Entrar">  
                 </form>
             </div><!--login--> 
 

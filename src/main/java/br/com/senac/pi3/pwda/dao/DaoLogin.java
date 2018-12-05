@@ -98,8 +98,9 @@ public class DaoLogin {
 
         Statement st = connection.createStatement();
 
-        ResultSet rs = st.executeQuery("SELECT LOG.*, FUN.TG_INATIVO FROM TS_LOGIN AS LOG "
+        ResultSet rs = st.executeQuery("SELECT LOG.*, FUN.TG_INATIVO, EMP.PK_ID AS FK_EMPRESA FROM TS_LOGIN AS LOG "
                 + "INNER JOIN TB_FUNCIONARIO AS FUN ON FUN.PK_ID = LOG.FK_FUNCIONARIO "
+                + "INNER JOIN TB_EMPRESA AS EMP ON FUN.FK_EMPRESA = EMP.PK_ID "
                 + "WHERE LOG.LOGIN ='" + login.trim() + "'");
 
         while (rs.next()) {
@@ -112,17 +113,21 @@ public class DaoLogin {
                 validar.setPermissao(rs.getString("PERMISSAO"));
                 validar.setFunc(rs.getInt("FK_FUNCIONARIO"));
                 validar.setInativo(rs.getInt("FUN.TG_INATIVO"));
+                validar.setIdEmp(rs.getInt("FK_EMPRESA"));
+                validar.setEmpresa(rs.getString("EMPRESA"));
 
-                if (validar.getPermissao().equalsIgnoreCase("Gerente Regional")) {
+                if (validar.getPermissao().equalsIgnoreCase("Gerente-Regional")) {
                     validar.setAutorizar(1);
-                } else if (validar.getPermissao().equalsIgnoreCase("TI")) {
-                    validar.setAutorizar(2); // Permissão para acesar tudo no sistema
-                } else if (validar.getPermissao().equalsIgnoreCase("Supervisor")) {
-                    validar.setAutorizar(1);
-                } else if (validar.getPermissao().equalsIgnoreCase("Gerente Global")) {
-                    validar.setAutorizar(2); // Permissão para acesar tudo no sistema
+                } else if (validar.getPermissao().equalsIgnoreCase("Gerente-Global")) {
+                    validar.setAutorizar(2); // Permissão para acesar tudo no sistema - LOGIN
                 } else if (validar.getPermissao().equalsIgnoreCase("Diretor")) {
                     validar.setAutorizar(2); // Permissão para acesar tudo no sistema
+                } else if (validar.getPermissao().equalsIgnoreCase("Venda")) {
+                    validar.setAutorizar(3);
+                } else if (validar.getPermissao().equalsIgnoreCase("Técnico")) {
+                    validar.setAutorizar(4); // Permissão para acesar tudo no sistema
+                } else if (validar.getPermissao().equalsIgnoreCase("Padrão")) {
+                    validar.setAutorizar(5);
                 }
 
             }

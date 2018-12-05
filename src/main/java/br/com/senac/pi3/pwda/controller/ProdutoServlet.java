@@ -22,9 +22,7 @@ public class ProdutoServlet extends HttpServlet {
 
         try {
             if (pagina.endsWith("ProdConsultar")) {
-                RequestDispatcher rd
-                        = request.getRequestDispatcher("/jsp/consultarProd.jsp");
-                rd.forward(request, response);
+               produtoConsultar(request, response);
             } else if (pagina.endsWith("ProdCadastrar")) {
                 produtoDigitar(request, response);
             } else if (pagina.endsWith("ProdDeletar")) {
@@ -64,8 +62,7 @@ public class ProdutoServlet extends HttpServlet {
         }
 
         produto.setProduto(request.getParameter("nome-produto"));
-        int tipoProd = Integer.parseInt(request.getParameter("tipo-produto"));
-        produto.setTipoProd(tipoProd);
+        produto.setTipoProd(request.getParameter("tipo-produto"));
         int qtd = Integer.parseInt(request.getParameter("qtd"));
         produto.setQtdProd(qtd);
         produto.setOrigem(request.getParameter("origem"));
@@ -78,18 +75,16 @@ public class ProdutoServlet extends HttpServlet {
             boolean resposta = ServicoProduto.insertFunc(produto);
             if (resposta == true) {
                 RequestDispatcher dispatcher
-                        = request.getRequestDispatcher("/jsp/cadastrarProd.jsp");
+                        = request.getRequestDispatcher("ProdConsultar");
                 dispatcher.forward(request, response);
             }
-
-            //response.sendRedirect("FuncConsultar");
         } catch (Exception ex) {
-//            RequestDispatcher rd = request.getRequestDispatcher("Funcionario/FuncionarioDigitar.jsp");
-//
-//            request.setAttribute("funcionario", funcionario);
-//            request.setAttribute("erro", ex.getMessage());
-//
-//            rd.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher("/jsp/cadastrarProd.jsp");
+
+            request.setAttribute("produto", produto);
+            request.setAttribute("erro", ex.getMessage());
+
+            rd.forward(request, response);
         }
     }
 
@@ -104,9 +99,6 @@ public class ProdutoServlet extends HttpServlet {
 
         List<Produto> prod = ServicoProduto.getList(busca, situacao);
 
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/consultar.jsp"); 
-//            request.setAttribute("funcionario", func);
-//        dispatcher.forward(request, response);
         RequestDispatcher rd = request.getRequestDispatcher("/jsp/consultarProd.jsp");
         request.setAttribute("buscar", busca);
         request.setAttribute("produto", prod);
