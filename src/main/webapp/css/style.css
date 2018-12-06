@@ -4,13 +4,19 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
-    
+
 }
 
 .section-login{
     height: 100%;
 }
 
+body{
+
+    background-position: center;
+    background-size: cover;
+
+}
 
 .container{
     max-width: 1200px;
@@ -27,7 +33,7 @@ nav{
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    
+
 }
 
 .container{
@@ -37,10 +43,10 @@ nav{
 }
 
 ul{
-display: -webkit-box;
-display: -ms-flexbox;
-display: flex;
-opacity: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    opacity: 0;
 
 }
 
@@ -62,7 +68,7 @@ ul li ul li{
     color: white!important;
     border-radius: 10px 21px 2px!important;
     opacity: .7;
-    
+
 }
 
 ul li:hover ul li{
@@ -117,9 +123,11 @@ ul li a:hover{
 .login{
     text-align: center;
     width: 500px;
-    margin: 0 auto;  
+    margin: 0 auto;
     padding: 50px 0;
     border-radius: 5px;
+    background: #ffffff;
+    margin-top: 3%;
 
 }
 
@@ -129,7 +137,7 @@ input{
     margin: 0 20px;
     border-bottom: 1px solid #888;
     color: #333;
- 
+
 }
 
 .btn-login{
