@@ -136,14 +136,15 @@ public class DaoVenda {
         }             
         
         ResultSet resultado = pst.executeQuery(
-            "SELECT PK_ID, PRODUTO, QUANTIDADE, VL_UNITARIO "
+            "SELECT PK_ID, PRODUTO, IMAGEM, QUANTIDADE, VL_UNITARIO "
                 + "FROM TB_PRODUTO WHERE PRODUTO LIKE '"+filtro+"%' AND TG_INATIVO = 0;");
 
         while (resultado.next()) {
 
             Produto prod = new Produto();
             prod.setId(resultado.getInt("PK_ID"));
-            prod.setProduto(resultado.getString("PRODUTO"));            
+            prod.setProduto(resultado.getString("PRODUTO"));  
+            prod.setImagem(resultado.getString("IMAGEM")); 
             prod.setQtdProd(resultado.getInt("QUANTIDADE"));            
             prod.setValorUnitario(resultado.getFloat("VL_UNITARIO"));            
 

@@ -66,7 +66,7 @@
                                 </ul>
                             </li>
                         </c:if>
-                        <li><a href="${pageContext.request.contextPath}/Venda">Realizar Venda</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Caixa">Realizar Venda</a></li>
                         <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
                     </ul>
                 </div><!--container-->

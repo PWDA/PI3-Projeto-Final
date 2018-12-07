@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "VendaServlet", urlPatterns = {"/Venda", "/CarregarProd", "/IncluirProd", "/DeleteVenda", "/RealizarVenda", "/CarregarCli"})
+@WebServlet(name = "VendaServlet", urlPatterns = {"/Caixa", "/CarregarProd", "/IncluirProd", "/DeleteVenda", "/RealizarVenda", "/CarregarCli"})
 public class VendaServlet extends HttpServlet {
         
     private List<Produto> listaProd = new ArrayList<Produto>();
@@ -39,7 +39,7 @@ public class VendaServlet extends HttpServlet {
                     deleteProdCarrinho(request, response);
                 }
                 
-                if (pagina.endsWith("Venda")) { 
+                if (pagina.endsWith("Caixa")) { 
                     if(!listaProd.isEmpty()){
                         listaProd.clear();
                         cliente = null;
@@ -256,15 +256,20 @@ public class VendaServlet extends HttpServlet {
         
         try {
             
-//            String formaPagamento = request.getParameter("formaPagamento");
             int idCaixa = Integer.parseInt(request.getParameter("idCaixa"));            
 
             venda = new Venda();
             String retorno = null;                
 
-            double valorTotal = Double.parseDouble(request.getParameter("subtotal"));
-            int idCliente = Integer.parseInt(request.getParameter("idCliente"));
-
+            double valorTotal = Double.parseDouble(request.getParameter("sub-total"));
+            
+            int idCliente;
+            if(request.getParameter("idCliente").equals("") || request.getParameter("idCliente") == null){
+                idCliente = 1;
+            }else{
+                idCliente = Integer.parseInt(request.getParameter("idCliente"));
+            }            
+            
             List<ItemVenda> listaItemVenda = new ArrayList<ItemVenda>();
             for (int i = 0; i < listaProd.size(); i++) {
                 ItemVenda itemVenda = new ItemVenda();
@@ -276,7 +281,6 @@ public class VendaServlet extends HttpServlet {
             } 
             venda.setIdCliente(idCliente);
             venda.setItens(listaItemVenda);        
-//            venda.setFormaPagamento(formaPagamento);
             venda.setIdCaixa(idCaixa);
             venda.setValorTotal(valorTotal);           
 

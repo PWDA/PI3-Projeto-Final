@@ -101,7 +101,7 @@
                                 </ul>
                             </li>
                         </c:if>
-                        <li><a href="${pageContext.request.contextPath}/Venda">Realizar Venda</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Caixa">Realizar Venda</a></li>
                         <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
                     </ul>
                 </div><!--container-->
@@ -113,10 +113,20 @@
                     <h2 class="chamada-venda">Agora é a hora de realizar a venda!</h2>
                     <div class="container-venda">
                         <form method="post">
-                            <input style="width: 150px; height: 150px; position: absolute; top: 150px; right: 13%; background: rgba(0,0,0,.1);" type="image" id="image-produto" alt="Imagem do produto"
+                            
+                            <c:if test="${produto.getImagem() != null}" >
+                                <input style="width: 150px; height: 150px; position: absolute; top: 150px; right: 13%; background: rgba(0,0,0,.1);" type="image" id="image-produto" alt="Imagem do produto"
+                                   src="img/produtos/${produto.getImagem()}">
+                            </c:if>
+                                
+                            <c:if test="${produto.getImagem() == null}" >
+                                <input style="width: 150px; height: 150px; position: absolute; top: 150px; right: 13%; background: rgba(0,0,0,.1);" type="image" id="image-produto" alt="Imagem do produto"
                                    src="img/produtos/sem-imagem.png">
+                            </c:if>
+                            
+                            
                             CPF<input type="text" name="cpf" placeholder="Digite o CPF/CNPJ para buscar" value="${cliente.getNumDocumento()}">
-                            Nome<input type="text" name="nomeCli" placeholder="Nome do Cliente" value="${cliente.getNome()}" readonly="true">
+                            Nome<input type="text" id="nome-cliente" class="nome-cliente" name="nomeCli" placeholder="Nome do Cliente" value="${cliente.getNome()}" readonly="true">
                             <input type="submit" name="btnCli" value="Buscar Cliente" formaction="CarregarCli"><br>
 
                             <input type="hidden" name="id" value="${produto.getId()}" >
@@ -164,23 +174,135 @@
                             <input type="hidden" name="idCaixa" value="${usuario.getId()}">
                             <input type="hidden" name="idCliente" value="${cliente.getId()}" >
                             <label for="">SUBTOTAL:</label>
-                            <input class="campo-subtotal" type="text" name="subtotal" value="${subtotal}" readonly="true">
-                            <input type="submit" name="btn-subtotal" value="Confirmar">
-
-                            <!--
-                            <div w3-include-html="./jsp/consultarCli.jsp"></div>
-                            -->
-
+                            <input class="campo-subtotal" id="sub-total" type="text" name="sub-total" value="${subtotal}" readonly="true">                            
+                            <input onclick="confirmar()" type="button" name="btn-subtotal" class="btnFecharCompra" value="Fechar Compra">
+                            
+                            <div id="modal-venda" class="modal-container">
+                                <div class="modal">
+                                    <a class="fechar"> <p class="fechar-in"> x </p> </a>
+                                    <h3 class="subtitulo">Confirmação de Venda</h3>
+                                    <form>
+                                        <label for="cliente">Cliente</label>
+                                        <input type="text" class="cliente" name="cliente" id="cliente" readonly="true"> <br>
+                                        <label for="cliente">Total</label> 
+                                        <input type="text" class="total" name="total" id="total" readonly="true"> <br> 
+                                        <input type="submit" class="confirmarVenda" value="Confirmar Venda">
+                                    </form>                                    
+                                </div>
+                            </div>
+                            
                         </form>
                     </div><!--container-venda-->
                 </div>
             </div><!--container-->
         </section><!--venda-->
 
-        <!--
+        <style>
+            .modal-container{
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0,0,0,.5);
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                z-index: 2000;
+                display: none;
+                justify-content: center;
+                align-items: center;
+            }        
+
+            .modal-container.mostrar{
+                display: flex;
+
+            }
+
+            .modal{
+                background: white;
+                width: 50%;
+                min-width: 300px;
+                padding: 80px;
+                border: 10px solid #42f4a1;
+                box-shadow: 0 0 0 10px white;
+                position: relative;
+
+            }
+
+            @keyframes modalAnime{
+                from{
+                    opacity: 0;
+                    transform: translate3d(0, -80px , 0);
+                }
+                to{
+                    opacity: 1;
+                    transform: translate3d(0, 0 , 0);
+                }
+            }
+
+            .mostrar .modal{
+                animation: modalAnime .3s;
+            }
+            
+            .fechar p{
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-30%, -55%);
+                        position: relative;
+                        font-size: 50px;
+                        color: white;
+                        font-weight: bold;
+            }
+            
+            .fechar{
+               position: absolute;
+                top: -30px;
+                right: -30px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                border: 4px solid white;
+                background: #42f4a1;
+                color: white;
+                font-size: 40px;
+                font-family: "PT Mono", monospace;
+                cursor: pointer;
+                box-shadow: 0 4px 0 rgba(0, 0, 0, .3);
+            }
+
+            .confirmarVenda{
+                margin: 5vh 2vw 2vh 0;
+                width: 150px!important;
+                background: #42b3f4;
+                cursor: pointer;
+                color: white;
+            }
+
+        </style>
+
         <script>
-            includeHTML();
+            function iniciaModal(modalID) {
+                const modal = document.getElementById(modalID);
+                if (modal) {
+                    modal.classList.add('mostrar');
+                    modal.addEventListener('click', (e) => {
+                        if (e.target.className == 'fechar-in') {
+                            modal.classList.remove('mostrar');
+                        }
+                    });
+                }
+            }
+
+            const venda = document.querySelector('.btnFecharCompra');
+            venda.addEventListener('click', () => iniciaModal('modal-venda'));
+
+        </script>        
+ 
+        <script type="text/javascript">            
+            function confirmar() {
+                var total = document.getElementById('sub-total').value;
+                var cliente = document.getElementById('nome-cliente').value;                
+                document.querySelector('.cliente').value = cliente;
+                document.querySelector('.total').value = total;
+            }
         </script>
-        -->
     </body>
 </html>

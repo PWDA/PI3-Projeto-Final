@@ -11,6 +11,7 @@ public class Produto {
     private String descricao;
     private float valorTotal; // usado para mostrar no form de venda
     private int inativo;
+    private String imagem;
 
     public int getId() {
         return id;
@@ -82,6 +83,14 @@ public class Produto {
 
     public void setInativo(int inativo) {
         this.inativo = inativo;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
 }
