@@ -113,7 +113,8 @@
                     <h2 class="chamada-venda">Agora é a hora de realizar a venda!</h2>
                     <div class="container-venda">
                         <form method="post">
-
+                            <input style="width: 150px; height: 150px; position: absolute; top: 150px; right: 10%; background: rgba(0,0,0,.1);" type="image" id="image-produto" alt="Imagem do produto"
+                                   src="img/produtos/sem-imagem.png">
                             CPF<input type="text" name="cpf" placeholder="Digite o CPF/CNPJ para buscar" value="${cliente.getNumDocumento()}">
                             Nome<input type="text" name="nomeCli" placeholder="Nome do Cliente" value="${cliente.getNome()}" readonly="true">
                             <input type="submit" name="btnCli" value="Buscar Cliente" formaction="CarregarCli"><br>

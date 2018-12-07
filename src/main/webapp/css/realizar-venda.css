@@ -146,6 +146,10 @@ input[name=btnCarregar]{
     border: 0;
 }
 
+.venda{
+    padding: 3% 0;
+}
+
 .container-venda{
     text-align: center;
 }
