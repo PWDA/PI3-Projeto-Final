@@ -17,7 +17,7 @@
     <body>
     <body>
         <c:if test="${usuario.getId() == null}">
-            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
+            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />
         </c:if>
         <header>
             <nav>
@@ -26,7 +26,7 @@
                         <a href="./jsp/home.jsp">
                             <img class="img-logo" src="../img/pwda-logo.png" alt="" width="200">
                             <img class="img-logo" src="./img/pwda-logo.png" alt="" width="200">
-                        </a> 
+                        </a>
                     </div><!--container-->
                 </div><!--logo-->
                 <div class="container">
@@ -42,7 +42,7 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncCadastrar" method="get">Funcionário</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdCadastrar" method="get">Produto</a></li>
                                 </ul>
-                            </li>                        
+                            </li>
                             <li class="link-submenu-consulta"><a href="#">Consultar</a>
                                 <ul class="sub-menu">
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
@@ -68,58 +68,60 @@
                         <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
                     </ul>
                 </div><!--container-->
-            </nav>    
-        </header> 
+            </nav>
+        </header>
         <div class="wrap">
             <div class="container">
                 <form action="${pageContext.request.contextPath}/CliConsultar" method="post">
                     <h1>Consulta de Clientes</h1>
                     <input type="text" name="buscar" placeholder="Digite para buscar..." value="${buscar}">
                     <label for="situacao">Situação</label>
-                    <select name="situacao" id="situacao">                        
+                    <select name="situacao" id="situacao">
                         <option value="Ativos">Ativos</option>
                         <option value="Inativos">Inativos</option>
                         <option value="Todos">Todos</option>
                     </select>
-                    <input type="submit" name="btn-buscar" value="Buscar">            
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Nrº Documento</th>
-                            <th>E-mail</th>
-                            <th>Telefone</th>
-                            <th>Alterar</th>
-                                <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
-                                <th>Inativar/Ativar</th>
-                                </c:if>
-                        </tr>
-
-                        <c:forEach items="${cliente}" var="cli" varStatus="stat">
+                    <input type="submit" name="btn-buscar" value="Buscar">
+                    <div class="table-fix">
+                        <table>
                             <tr>
-                                <td> <c:out value="${cli.getId()}"/> </td>
-                                <td> <c:out value="${cli.getNome()}"/> </td>
-                                <td> <c:out value="${cli.getNumDocumento()}"/> </td>
-                                <td> <c:out value="${cli.getEmail()}"/> </td>
-                                <td> <c:out value="${cli.getTelefone()}"/> </td>                        
-
-                                <td> 
-                                    <a href="CliCadastrar?id=<c:out value='${cli.getId()}'/>" 
-                                       class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
-                                </td>
-                                <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
-                                    <td>
-                                        <a href="CliDeletar?id=<c:out value='${cli.getId()}'/>" 
-                                           class="btn-delete"> <i class="fas fa-times"> </i> </a>
-                                    </td>
-                                </c:if>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Nrº Documento</th>
+                                <th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Alterar</th>
+                                    <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
+                                    <th>Inativar/Ativar</th>
+                                    </c:if>
                             </tr>
-                        </c:forEach>
 
-                        <tr>
-                            <td> <a href="CliCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a ></td>
-                        </tr>
-                    </table>
+                            <c:forEach items="${cliente}" var="cli" varStatus="stat">
+                                <tr>
+                                    <td> <c:out value="${cli.getId()}"/> </td>
+                                    <td> <c:out value="${cli.getNome()}"/> </td>
+                                    <td> <c:out value="${cli.getNumDocumento()}"/> </td>
+                                    <td> <c:out value="${cli.getEmail()}"/> </td>
+                                    <td> <c:out value="${cli.getTelefone()}"/> </td>
+
+                                    <td>
+                                        <a href="CliCadastrar?id=<c:out value='${cli.getId()}'/>"
+                                           class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
+                                    </td>
+                                    <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
+                                        <td>
+                                            <a href="CliDeletar?id=<c:out value='${cli.getId()}'/>"
+                                               class="btn-delete"> <i class="fas fa-times"> </i> </a>
+                                        </td>
+                                    </c:if>
+                                </tr>
+                            </c:forEach>
+
+                            <tr>
+                                <td> <a href="CliCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a ></td>
+                            </tr>
+                        </table>
+                    </div>
                 </form>
             </div>
         </div>

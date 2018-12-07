@@ -4,7 +4,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
-    
+
 }
 
 body, html{
@@ -12,7 +12,7 @@ body, html{
 }
 
 .top-header{
-   background: #ffffff;
+    background: #ffffff;
 }
 
 .img-logo{
@@ -45,7 +45,7 @@ nav{
 .sub-menu{
     position: absolute;
     display: none;
-    padding-top: 10px; 
+    padding-top: 10px;
 }
 
 .sub-menu li{
@@ -55,7 +55,7 @@ nav{
 .sub-menu a{
     width: 100%;
     display: block;
-    
+
 }
 
 .menu-principal > li{
@@ -69,8 +69,8 @@ nav{
 .sub-menu-item a{
     background:#67C18D!important;
     color: white!important;
-  
-    
+
+
 }
 
 
@@ -101,7 +101,7 @@ nav{
 .form-relatorio-global h1{
     padding: 20px;
     text-align: center;
-    
+
 }
 
 input{
@@ -124,16 +124,19 @@ input[name=btnGerar]{
 
 table{
     border-collapse: collapse;
+    border: 0;
 }
 
 td{
     height: 70px;
     text-align: center;
     border: 1px solid #666;
+    border: 0;
 }
 
 th{
     height: 50px;
     background: #67C18D;
     color: #ffffff;
+    border: 0;
 }

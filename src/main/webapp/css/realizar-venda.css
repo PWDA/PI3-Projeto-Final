@@ -4,11 +4,11 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
-    
+
 }
 
 .top-header{
-   background: #ffffff;
+    background: #ffffff;
 }
 
 .img-logo{
@@ -41,7 +41,7 @@ nav{
 .sub-menu{
     position: absolute;
     display: none;
-    padding-top: 10px; 
+    padding-top: 10px;
 }
 
 .sub-menu li{
@@ -51,8 +51,9 @@ nav{
 .sub-menu a{
     width: 100%;
     display: block;
-    
+
 }
+
 
 .menu-principal > li{
     list-style: none;
@@ -65,8 +66,8 @@ nav{
 .sub-menu-item a{
     background:#67C18D!important;
     color: white!important;
-  
-    
+
+
 }
 
 
@@ -104,14 +105,29 @@ nav{
     width: 200px;
 }
 
+input[name=btnCli]{
+    background: #333;
+    color: white;
+    border: 0;
+    padding: 0 10px;
+}
+
+input{
+    margin: 20px 10px;
+    border-radius: 5px;
+    height: 35px;
+    padding: 10px;
+}
+
 input[name=btnIncluir]{
     cursor: pointer;
-   font-size: 14px;
+    font-size: 14px;
     text-decoration: none;
     background:#0066B0;
     border-radius: 5px;
     color: #fff;
     padding: 5px 10px;
+    border: 0;
 }
 
 
@@ -127,14 +143,11 @@ input[name=btnCarregar]{
     border-radius: 5px;
     color: #fff;
     padding: 5px 10px;
+    border: 0;
 }
 
 .container-venda{
-   text-align: center;
-}
-
-table{
-   margin: 0 auto;
+    text-align: center;
 }
 
 
@@ -143,10 +156,77 @@ table{
     text-align: center;
 }
 
+.listar-venda{
+    width: 90%;
+    height: 60vh;
+    margin: 0 auto;
+    background: #f3f3f3;
+    overflow: auto;
+
+}
+
 table{
-    text-align: center;
-    width: 50%;
+
+    width: 100%;
     border-collapse: collapse;
+    background: #f3f3f3;
+    margin: 0 auto;
+}
+
+th{
+    position: sticky;
+    top: 0;
+    background: #eaeaea;
+    font-size: 12px;
+    color: #999;
+    padding: 10px;
+    border-bottom: 3px solid rgba(0,0,0,.1);
+}
+
+td{
+    padding: 15px 0;
+    color: #666;
+
+}
+
+
+.btn-delete{
+    color: tomato;
+    cursor: pointer;
+}
+
+.btn-alterar{
+    color: #4286f4;
+    cursor: pointer;
+}
+
+
+input[name=btn-subtotal]{
+    width: 150px;
+    border: 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: lightgreen;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.confirmar{
+    padding: 20px;
+    width: 50%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+.container-venda{
+    text-align: center;
+}
+
+
+.chamada-venda{
+    padding: 20px;
+    text-align: center;
 }
 
 th{
@@ -154,18 +234,13 @@ th{
     font-size: 12px;
     color: #999;
     padding: 10px;
-    border-bottom: 3px solid rgba(0,0,0,.1); 
+    border-bottom: 3px solid rgba(0,0,0,.1);
 }
 
 td{
     padding: 15px 0;
     color: #666;
-  
-}
 
-.btn-alterar, .btn-delete, .btn-incluir{
-    border-bottom: 5px solid white;
-    border-right: 5px solid white;
 }
 
 .btn-delete{
@@ -195,90 +270,13 @@ input[name=btn-subtotal]{
     width: 50%;
     margin: 0 auto;
     padding-bottom: 50px;
-   
+    display: flex;
+    align-items: center;
 
 }
 
 .campo-subtotal{
-    width: 200px;
-    border: 0;
-    background: #f0f0f0;
-    padding: 5px 10px;
-    margin: 0 20px;
-}
-
-
-.container-venda{
-   text-align: center;
-}
-
-table{
-   margin: 0 auto;
-}
-
-
-.chamada-venda{
-    padding: 20px;
-    text-align: center;
-}
-
-table{
-    text-align: center;
-    width: 50%;
-    border-collapse: collapse;
-}
-
-th{
-    background: #eee;
-    font-size: 12px;
-    color: #999;
-    padding: 10px;
-    border-bottom: 3px solid rgba(0,0,0,.1); 
-}
-
-td{
-    padding: 15px 0;
-    color: #666;
-  
-}
-
-.btn-alterar, .btn-delete, .btn-incluir{
-    border-bottom: 5px solid white;
-    border-right: 5px solid white;
-}
-
-.btn-delete{
-    color: tomato;
-    cursor: pointer;
-}
-
-.btn-alterar{
-    color: #4286f4;
-    cursor: pointer;
-}
-
-
-input[name=btn-subtotal]{
-    width: 150px;
-    border: 0;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background: lightgreen;
-    color: #333;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.confirmar{
-    padding: 20px;
-    width: 50%;
-    margin: 0 auto;
-    padding-bottom: 50px;
-   
-
-}
-
-.campo-subtotal{
+    display: inline;
     width: 200px;
     border: 0;
     background: #f0f0f0;
@@ -288,7 +286,7 @@ input[name=btn-subtotal]{
 
 input[name=btnCarregar]{
     cursor: pointer;
-   font-size: 14px;
+    font-size: 14px;
     text-decoration: none;
     background:#0066B0;
     border-radius: 5px;

@@ -14,12 +14,12 @@
         <!--fontawesome-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     </head>
-    <body> 
+    <body>
         <c:if test="${usuario.getId() == null}">
-            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
+            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />
         </c:if>
         <c:if test="${usuario.getAutorizar() == 1 || usuario.getAutorizar() == 3 || usuario.getAutorizar() == 5}">
-            <c:redirect url=" http://localhost:8080/br.com.senac.pi3.pwda/jsp/home.jsp" />            
+            <c:redirect url=" http://localhost:8080/br.com.senac.pi3.pwda/jsp/home.jsp" />
         </c:if>
         <header>
             <nav>
@@ -28,7 +28,7 @@
                         <a href="./jsp/home.jsp">
                             <img class="img-logo" src="../img/pwda-logo.png" alt="" width="200">
                             <img class="img-logo" src="./img/pwda-logo.png" alt="" width="200">
-                        </a> 
+                        </a>
                     </div><!--container-->
                 </div><!--logo-->
                 <div class="container">
@@ -44,7 +44,7 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncCadastrar" method="get">Funcionário</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdCadastrar" method="get">Produto</a></li>
                                 </ul>
-                            </li>                        
+                            </li>
                             <li class="link-submenu-consulta"><a href="#">Consultar</a>
                                 <ul class="sub-menu">
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
@@ -70,63 +70,64 @@
                         <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
                     </ul>
                 </div><!--container-->
-            </nav>    
-        </header> 
+            </nav>
+        </header>
         <div class="wrap">
             <div class="container">
 
                 <input type="hidden" value="${erro}" id="erroMsg" name="erroMsg" />
 
                 <form action="${pageContext.request.contextPath}/EmpConsultar" method="post">
-                    <h1>Consulta de Empresas</h1>                                                
+                    <h1>Consulta de Empresas</h1>
                     <input type="text" name="buscar" placeholder="Digite o nome da empresa" value="${buscar}">
                     <label for="situacao">Situação</label>
                     <select name="situacao" id="situacao">
                         <option value="Ativos">Ativos</option>
                         <option value="Inativos">Inativos</option>
-                        <option value="Todos">Todos</option>                
+                        <option value="Todos">Todos</option>
                     </select>
                     <input type="submit" name="btn-buscar" value="Buscar">
-
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Empresa</th>
-                            <th>Diretor</th>
-                            <th>CNPJ</th>
-                            <th>Telefone</th>
-                                <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
-                                <th>Incluir/Alterar</th>
-                                <th>Ativar/Inativar</th>
-                                </c:if>
-                        </tr>
-
-                        <c:forEach items="${empresa}" var="emp" varStatus="stat">
+                    <div class="table-fix">
+                        <table>
                             <tr>
-                                <td> <c:out value="${emp.getId()}"/> </td>
-                                <td> <c:out value="${emp.getEmpresa()}"/> </td>
-                                <td> <c:out value="${emp.getDiretor()}"/> </td>
-                                <td> <c:out value="${emp.getCnpj()}"/> </td>
-                                <td> <c:out value="${emp.getTelefone()}"/> </td>
-                                <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
-                                    <td> 
-                                        <a href="EmpCadastrar?id=<c:out value='${emp.getId()}'/>" 
-                                           class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
-                                    </td>
+                                <th>ID</th>
+                                <th>Empresa</th>
+                                <th>Diretor</th>
+                                <th>CNPJ</th>
+                                <th>Telefone</th>
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
+                                    <th>Incluir/Alterar</th>
+                                    <th>Ativar/Inativar</th>
+                                    </c:if>
+                            </tr>
 
-                                    <td>
-                                        <a href="EmpDeletar?id=<c:out value='${emp.getId()}'/>" 
-                                           class="btn-delete"> <i class="fas fa-times"> </i> </a>
-                                    </td>
-                                </c:if>
-                            </tr>
-                        </c:forEach>
-                        <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
-                            <tr>                        
-                                <td> <a href="EmpCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a ></td>
-                            </tr>
-                        </c:if>
-                    </table>
+                            <c:forEach items="${empresa}" var="emp" varStatus="stat">
+                                <tr>
+                                    <td> <c:out value="${emp.getId()}"/> </td>
+                                    <td> <c:out value="${emp.getEmpresa()}"/> </td>
+                                    <td> <c:out value="${emp.getDiretor()}"/> </td>
+                                    <td> <c:out value="${emp.getCnpj()}"/> </td>
+                                    <td> <c:out value="${emp.getTelefone()}"/> </td>
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
+                                        <td>
+                                            <a href="EmpCadastrar?id=<c:out value='${emp.getId()}'/>"
+                                               class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
+                                        </td>
+
+                                        <td>
+                                            <a href="EmpDeletar?id=<c:out value='${emp.getId()}'/>"
+                                               class="btn-delete"> <i class="fas fa-times"> </i> </a>
+                                        </td>
+                                    </c:if>
+                                </tr>
+                            </c:forEach>
+                            <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
+                                <tr>
+                                    <td> <a href="EmpCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a ></td>
+                                </tr>
+                            </c:if>
+                        </table>
+                    </div>
                 </form>
             </div>
         </div>

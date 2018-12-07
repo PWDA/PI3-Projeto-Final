@@ -106,7 +106,7 @@ h1{
 
 form{
     width: 90%;
-    margin: 0 auto;
+    margin: 7% auto;
 }
 
 input[name=btn-buscar]{
@@ -137,9 +137,11 @@ input[type=submit]{
 
 table{
     text-align: center;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
+
+
 }
 
 th{
@@ -148,17 +150,20 @@ th{
     color: #999;
     padding: 10px;
     border-bottom: 3px solid rgba(0,0,0,.1);
+    position: sticky;
+    top: 0;
 }
 
 td{
     padding: 15px 0;
     color: #666;
 
+
+
 }
 
 .btn-alterar, .btn-delete, .btn-incluir{
-    border-bottom: 5px solid white;
-    border-right: 5px solid white;
+
 }
 
 .btn-delete{
@@ -190,6 +195,11 @@ td{
     margin: 0 auto;
 }
 
+.table-fix{
+    width: 100%;
+    overflow: auto;
+    height: 60vh;
+}
 footer{
     position: relative;
     bottom: 0;

@@ -14,9 +14,9 @@
         <!--fontawesome-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     </head>
-    <body> 
+    <body>
         <c:if test="${usuario.getId() == null}">
-            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
+            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />
         </c:if>
         <header>
             <nav>
@@ -25,7 +25,7 @@
                         <a href="./jsp/home.jsp">
                             <img class="img-logo" src="../img/pwda-logo.png" alt="" width="200">
                             <img class="img-logo" src="./img/pwda-logo.png" alt="" width="200">
-                        </a> 
+                        </a>
                     </div><!--container-->
                 </div><!--logo-->
                 <div class="container">
@@ -41,7 +41,7 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncCadastrar" method="get">Funcionário</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdCadastrar" method="get">Produto</a></li>
                                 </ul>
-                            </li>                        
+                            </li>
                             <li class="link-submenu-consulta"><a href="#">Consultar</a>
                                 <ul class="sub-menu">
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
@@ -67,8 +67,8 @@
                         <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
                     </ul>
                 </div><!--container-->
-            </nav>    
-        </header>                    
+            </nav>
+        </header>
 
         <div class="wrap">
             <div class="container">
@@ -76,7 +76,7 @@
                 <input type="hidden" value="${erro}" id="erroMsg" name="erroMsg" />
 
                 <form action="${pageContext.request.contextPath}/FuncConsultar" method="post">
-                    <h1>Consulta de Funcionários</h1>                                                
+                    <h1>Consulta de Funcionários</h1>
                     <input type="text" name="buscar" placeholder="Digite para buscar..." value="${buscar}">
                     <label for="situacao">Situação</label>
                     <select name="situacao" id="situacao">
@@ -85,55 +85,56 @@
                         <option value="Todos">Todos</option>
                     </select>
                     <input type="submit" name="btn-buscar" value="Buscar">
-
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>E-mail</th>
-                            <th>Telefone</th>
-                            <th>Cargo</th>
-                            <th>Departamento</th>
-                            <th>Alterar</th>
-                                <c:if test="${usuario.getAutorizar() == 4 || usuario.getAutorizar() == 2}">
-                                <th>Inativar/Ativar</th>
-                                </c:if>
-                                <c:if test="${usuario.getAutorizar() == 4}">
-                                <th>Login</th>
-                                </c:if>
-                        </tr>
-
-                        <c:forEach items="${funcionario}" var="func" varStatus="stat">
+                    <div class = "table-fix">
+                        <table>
                             <tr>
-                                <td> <c:out value="${func.getId()}"/> </td>
-                                <td> <c:out value="${func.getNome()}"/> </td>
-                                <td> <c:out value="${func.getEmail()}"/> </td>
-                                <td> <c:out value="${func.getTelefone()}"/> </td>
-                                <td> <c:out value="${func.getCargo()}"/> </td>
-                                <td> <c:out value="${func.getDepartamento()}"/> </td>
-                                <td> 
-                                    <a href="FuncCadastrar?id=<c:out value='${func.getId()}'/>" 
-                                       class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
-                                </td>
-                                <c:if test="${usuario.getAutorizar() == 4 || usuario.getAutorizar() == 2}">
-                                    <td>
-                                        <a href="FuncDeletar?id=<c:out value='${func.getId()}'/>" 
-                                           class="btn-delete"> <i class="fas fa-times"> </i> </a>
-                                    </td>
-                                </c:if>
-                                <c:if test="${usuario.getAutorizar() == 4}">
-                                    <td>
-                                        <a href="LoginCadastrar?id=<c:out value='${func.getId()}'/>" 
-                                           class="btn-criarLogin"> <i class="fas fa-user-plus"> </i> </a>
-                                    </td>
-                                </c:if>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Cargo</th>
+                                <th>Departamento</th>
+                                <th>Alterar</th>
+                                    <c:if test="${usuario.getAutorizar() == 4 || usuario.getAutorizar() == 2}">
+                                    <th>Inativar/Ativar</th>
+                                    </c:if>
+                                    <c:if test="${usuario.getAutorizar() == 4}">
+                                    <th>Login</th>
+                                    </c:if>
                             </tr>
-                        </c:forEach>
 
-                        <tr>                        
-                            <td> <a href="FuncCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a></td>
-                        </tr>
-                    </table>
+                            <c:forEach items="${funcionario}" var="func" varStatus="stat">
+                                <tr>
+                                    <td> <c:out value="${func.getId()}"/> </td>
+                                    <td> <c:out value="${func.getNome()}"/> </td>
+                                    <td> <c:out value="${func.getEmail()}"/> </td>
+                                    <td> <c:out value="${func.getTelefone()}"/> </td>
+                                    <td> <c:out value="${func.getCargo()}"/> </td>
+                                    <td> <c:out value="${func.getDepartamento()}"/> </td>
+                                    <td>
+                                        <a href="FuncCadastrar?id=<c:out value='${func.getId()}'/>"
+                                           class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
+                                    </td>
+                                    <c:if test="${usuario.getAutorizar() == 4 || usuario.getAutorizar() == 2}">
+                                        <td>
+                                            <a href="FuncDeletar?id=<c:out value='${func.getId()}'/>"
+                                               class="btn-delete"> <i class="fas fa-times"> </i> </a>
+                                        </td>
+                                    </c:if>
+                                    <c:if test="${usuario.getAutorizar() == 4}">
+                                        <td>
+                                            <a href="LoginCadastrar?id=<c:out value='${func.getId()}'/>"
+                                               class="btn-criarLogin"> <i class="fas fa-user-plus"> </i> </a>
+                                        </td>
+                                    </c:if>
+                                </tr>
+                            </c:forEach>
+
+                            <tr>
+                                <td> <a href="FuncCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a></td>
+                            </tr>
+                        </table>
+                    </div>
                 </form>
             </div>
         </div>

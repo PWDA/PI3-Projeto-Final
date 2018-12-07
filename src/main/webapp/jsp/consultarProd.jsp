@@ -14,9 +14,9 @@
         <!--fontawesome-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     </head>
-    <body> 
+    <body>
         <c:if test="${usuario.getId() == null}">
-            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />            
+            <c:redirect url="http://localhost:8080/br.com.senac.pi3.pwda/Login?code=00" />
         </c:if>
         <header>
             <nav>
@@ -25,7 +25,7 @@
                         <a href="./jsp/home.jsp">
                             <img class="img-logo" src="../img/pwda-logo.png" alt="" width="200">
                             <img class="img-logo" src="./img/pwda-logo.png" alt="" width="200">
-                        </a> 
+                        </a>
                     </div><!--container-->
                 </div><!--logo-->
                 <div class="container">
@@ -41,7 +41,7 @@
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/FuncCadastrar" method="get">Funcionário</a></li>
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/ProdCadastrar" method="get">Produto</a></li>
                                 </ul>
-                            </li>                        
+                            </li>
                             <li class="link-submenu-consulta"><a href="#">Consultar</a>
                                 <ul class="sub-menu">
                                     <li class="sub-menu-item"><a href="${pageContext.request.contextPath}/EmpConsultar" method="get">Empresa</a></li>
@@ -67,8 +67,8 @@
                         <li><a href="${pageContext.request.contextPath}/logout">Sair</a></li>
                     </ul>
                 </div><!--container-->
-            </nav>    
-        </header>                
+            </nav>
+        </header>
 
         <div class="wrap">
             <div class="container">
@@ -76,57 +76,58 @@
                 <input type="hidden" value="${erro}" id="erroMsg" name="erroMsg" />
 
                 <form action="${pageContext.request.contextPath}/ProdConsultar" method="post">
-                    <h1>Consulta de Produtos</h1>                                                
+                    <h1>Consulta de Produtos</h1>
                     <input type="text" name="buscar" placeholder="Digite para buscar..." value="${buscar}">
                     <lable for="situacao">Situação</lable>
                     <select name="situacao" id="situacao">
                         <option value="Ativos">Ativos</option>
                         <option value="Inativos">Inativos</option>
-                        <option value="Todos">Todos</option>                     
+                        <option value="Todos">Todos</option>
                     </select>
                     <input type="submit" name="btn-buscar" value="Buscar">
-
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Produto</th>
-                            <th>Tipo Produto</th>
-                            <th>Quantidade</th>
-                            <th>Valor Unitário</th>
-                            <c:if test="${usuario.getAutorizar() == 4 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1}">
-                                <th>Inativar/Ativar</th>
-                                <th>Alterar</th>
-                            </c:if>           
-                        </tr>
-
-                        <c:forEach items="${produto}" var="prod" varStatus="stat">
+                    <div class="table-fix">
+                        <table>
                             <tr>
-                                <td> <c:out value="${prod.getId()}"/> </td>
-                                <td> <c:out value="${prod.getProduto()}"/> </td>
-                                <td> <c:out value="${prod.getTipoProd()}"/> </td>
-                                <td> <c:out value="${prod.getQtdProd()}"/> </td>
-                                <td> <c:out value="${prod.getValorUnitario()}"/> </td>
-                                <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 4}">       
-                                    <td> 
-                                        <a href="ProdCadastrar?id=<c:out value='${prod.getId()}'/>" 
-                                           class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
-                                    </td>
-
-                                    <td>
-                                        <a href="ProdDeletar?id=<c:out value='${prod.getId()}'/>" 
-                                           class="btn-delete"> <i class="fas fa-times"> </i> </a>
-                                    </td>
-                                </c:if> 
+                                <th>ID</th>
+                                <th>Produto</th>
+                                <th>Tipo Produto</th>
+                                <th>Quantidade</th>
+                                <th>Valor Unitário</th>
+                                    <c:if test="${usuario.getAutorizar() == 4 || usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1}">
+                                    <th>Inativar/Ativar</th>
+                                    <th>Alterar</th>
+                                    </c:if>
                             </tr>
-                        </c:forEach>
-                        <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 4}"> 
-                            <tr>
-                                <td> <a href="ProdCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a ></td>
-                            </tr>
-                        </c:if> 
+
+                            <c:forEach items="${produto}" var="prod" varStatus="stat">
+                                <tr>
+                                    <td> <c:out value="${prod.getId()}"/> </td>
+                                    <td> <c:out value="${prod.getProduto()}"/> </td>
+                                    <td> <c:out value="${prod.getTipoProd()}"/> </td>
+                                    <td> <c:out value="${prod.getQtdProd()}"/> </td>
+                                    <td> <c:out value="${prod.getValorUnitario()}"/> </td>
+                                    <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 4}">
+                                        <td>
+                                            <a href="ProdCadastrar?id=<c:out value='${prod.getId()}'/>"
+                                               class="btn-alterar"> <i class="fas fa-pencil-alt"> </i> </a>
+                                        </td>
+
+                                        <td>
+                                            <a href="ProdDeletar?id=<c:out value='${prod.getId()}'/>"
+                                               class="btn-delete"> <i class="fas fa-times"> </i> </a>
+                                        </td>
+                                    </c:if>
+                                </tr>
+                            </c:forEach>
+                            <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 1 || usuario.getAutorizar() == 4}">
+                                <tr>
+                                    <td> <a href="ProdCadastrar?action=doGet" class="btn-incluir">Novo cadastro</a ></td>
+                                </tr>
+                            </c:if>
 
 
-                    </table>
+                        </table>
+                    </div>
                 </form>
             </div>
         </div>
