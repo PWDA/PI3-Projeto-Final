@@ -81,13 +81,12 @@
                         <c:if test="${usuario.getAutorizar() == 2 || usuario.getAutorizar() == 4}">
                             <label for="filial">Filial: </label>
                             <select name="filial" id="filial">
-                                <option value="TODAS">TODAS</option>
-                                <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>
-                                <option value="PWDA-RIO DE JANEIRO">PWDA-RIO DE JANEIRO</option>
-                                <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option>
-                                <option value="PWDA-BAHIA">PWDA-BAHIA</option>
-                                <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>  
-                            </select><br><br>
+                                <option value="TODAS">TODAS</option> 
+                                <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>                           
+                                <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option> 
+                                <option value="PWDA-BRASÍLIA">PWDA-BRASÍLIA</option>
+                                <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>
+                            </select> <br><br>
                         </c:if>
                         <label for="de">De</label>
                         <input type="date" name="dt_inicial">

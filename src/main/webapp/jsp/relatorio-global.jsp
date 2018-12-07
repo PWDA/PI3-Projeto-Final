@@ -79,14 +79,13 @@
                     <h1>Relatório / Venda global</h1>
                     <form action="${pageContext.request.contextPath}/Relatorio-Global" method="post">
                         <label for="filial">Filial: </label>
-                        <select name="filial" id="filial">
-                            <option value="TODAS">TODAS</option>
-                            <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>
-                            <option value="PWDA-RIO DE JANEIRO">PWDA-RIO DE JANEIRO</option>
-                            <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option>
-                            <option value="PWDA-BAHIA">PWDA-BAHIA</option>
-                            <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>  
-                        </select><br><br>
+                            <select name="filial" id="filial">
+                                <option value="TODAS">TODAS</option> 
+                                <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>                           
+                                <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option> 
+                                <option value="PWDA-BRASÍLIA">PWDA-BRASÍLIA</option>
+                                <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>
+                            </select> <br><br>
 
                         <label for="de">De</label>
                         <input type="date" name="dt_inicial">

@@ -140,10 +140,9 @@
                             <input type="text" name="departamento" id="departamento" placeholder="Digite o departamento" maxlength="100" value="${funcionario.getDepartamento()}" required><br>
                             <select name="empresa" id="empresa">
                                 <option><c:out value="${funcionario.getEmpresa()}"></c:out></option>
-                                <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>
-                                <option value="PWDA-RIO DE JANEIRO">PWDA-RIO DE JANEIRO</option>
-                                <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option>
-                                <option value="PWDA-BAHIA">PWDA-BAHIA</option>
+                                <option value="PWDA-SÃO PAULO">PWDA-SÃO PAULO</option>                           
+                                <option value="PWDA-CAMPINA GRANDE">PWDA-CAMPINA GRANDE</option> 
+                                <option value="PWDA-BRASÍLIA">PWDA-BRASÍLIA</option>
                                 <option value="PWDA-JOINVILLE">PWDA-JOINVILLE</option>
                             </select>
                             <input type="submit" name="cadastrar" value="Cadastrar">
